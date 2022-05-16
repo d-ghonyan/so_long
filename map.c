@@ -25,5 +25,5 @@ void	parse_map(char *filename)
 		line_count++;
 		free(line);
 	}
-	printf("%d")
+	ft_printf("%d");
 }
