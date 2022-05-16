@@ -22,7 +22,7 @@ lib:
 	cd libft && make 
 
 clean:
-	rm -f $(OBJS) libft/*.o ft_printf/*.o
+	rm -f ./*.o libft/*.o ft_printf/*.o
 
 fclean: clean
 	rm -f $(NAME) libft/libft.a ft_printf/libftprintf.a

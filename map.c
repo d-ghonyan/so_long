@@ -5,11 +5,12 @@ void	parse_map(char *filename)
 	int		i;
 	int		map;
 	int		map_other;
-	int		line_len;
+	//int		line_len;
 	int		line_count;
 	char	*line;
 
 	i = 0;
+	line_count = 0;
 	map = open(filename, O_RDONLY);
 	map_other = open(filename, O_RDONLY);
 	if (map < 0 || map_other < 0)
@@ -25,5 +26,5 @@ void	parse_map(char *filename)
 		line_count++;
 		free(line);
 	}
-	ft_printf("%d");
+	ft_printf("%d", line_count);
 }

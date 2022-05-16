@@ -2,8 +2,7 @@
 #include <stdio.h>
 #include <fcntl.h>
 #include <mlx.h>
-//#include "libft/libft.h"
-#include "libft/libft.h"
+#include "so_long.h"
 
 typedef struct s_mlx {
 	void	*mlx_ptr;
@@ -29,25 +28,47 @@ int	destroy_hook(t_mlx mlx)
 	return (0);
 }
 
-int	main()
+void	check_args(int argc, char *filename)
 {
-	void	*blackHole;
+	char	*dot;
+	
+	if (argc < 2)
+	{
+		ft_printf(RED "Not enough arguments" COLOR_RESET);
+		exit (EXIT_FAILURE);
+	}
+	if (argc > 2)
+	{
+		ft_printf(RED "Too many arguments" COLOR_RESET);
+		exit (EXIT_FAILURE);
+	}
+	dot = ft_strrchr(filename, '.');
+	if (!dot || ft_strncmp(dot, ".ber", 4))
+	{
+		ft_printf(RED "Wrong map format, must be *.ber" COLOR_RESET);
+		exit (EXIT_FAILURE);
+	}
+}
+
+int	main(int argc, char **argv)
+{
+	void	*black_hole;
 	int width = 50, height = 50;
 	t_mlx	mlx;
 
-	printf("%s\n", get_next_line(5));
-
+	check_args(argc, argv[1]);
+	parse_map(argv[1]);
 	mlx.mlx_ptr = mlx_init();
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, 400, 400, "Hello");
 	mlx_key_hook(mlx.win_ptr, &key_hook, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 0, &destroy_hook, &mlx);
 	// png = mlx_xpm_file_to_image(mlx.mlx_ptr, "skybox.xpm", &width, &height);
 	// wooden = mlx_xpm_file_to_image(mlx.mlx_ptr, "wooden.xpm", &width, &height);
-	blackHole = mlx_xpm_file_to_image(mlx.mlx_ptr, "blackHole.xpm", &width, &height);
+	black_hole = mlx_xpm_file_to_image(mlx.mlx_ptr, "blackHole.xpm", &width, &height);
 
 	for (int i = 0; i < 400; i += width)
 		for (int j = 0; j < 400; j += height)
-			mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, blackHole, i, j);
+			mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, black_hole, i, j);
 
 	//ft_printf("%d %d\n", width, height);
 	//mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, wooden, 0, 0);
