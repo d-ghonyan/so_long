@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <stddef.h>
+#include <stdio.h>
 
 void	*ft_memrchr(const void *s, int c, size_t n)
 {
@@ -24,6 +25,7 @@ void	*ft_memrchr(const void *s, int c, size_t n)
 	}
 	while (n--)
 	{
+		printf("%c", *(unsigned char *)s);
 		if (*(unsigned char *)s == (unsigned char)c)
 			return ((void *)s);
 		s--;
