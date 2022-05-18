@@ -6,7 +6,7 @@
 /*   By: dghonyan <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/10 20:46:02 by dghonyan          #+#    #+#             */
-/*   Updated: 2022/03/17 20:32:47 by dghonyan         ###   ########.fr       */
+/*   Updated: 2022/05/14 19:39:29 by dghonyan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,11 @@
 
 # define LIBFT_H
 
+# include <stddef.h>
+
 # ifndef BUFFER_SIZE
 #  define BUFFER_SIZE 1
 # endif
-
-# include <stdlib.h>
 
 int		ft_toupper(int c);
 int		ft_tolower(int c);
@@ -48,22 +48,16 @@ char	*ft_strtrim(char const *s, char const *set);
 char	*ft_strchr(const char *s, int c);
 char	*ft_strrchr(const char *s, int c);
 char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
-char	*ft_strjoinNotGnl(char const *s1, char const *s2);
+char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
 char	*ft_itoa(int n);
+//GNL
+char	*get_next_line(int fd);
+char	*ft_strjoin_gnl(char const *s1, char const *s2);
+//GNL
 char	**ft_split(char const *s, char c);
 size_t	ft_strlen(const char *s);
 size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 size_t	ft_strlcat(char *dst, const char *src, size_t dstsize);
-void	to_hex_lower(unsigned int n, int is_upper, int *count);
-void	ft_putnbr(int n, int *count);
-void	ft_putstr(char const *s, int *count);
-void	to_hex_upper(unsigned int n, int *count);
-void	ft_putnbr_u(unsigned int n, int *count);
-void	ft_putchar(char c, int *count);
-void	print_ptr(void *p, int *count);
-int		ft_printf(const char *s, ...);
-char	*get_next_line(int fd);
-char	*ft_strjoin(char *s1, char const *s2);
 
 #endif

@@ -2,7 +2,7 @@
 
 # define SO_LONG_H
 
-# include <mlx.h>
+//# include <mlx.h>
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>
@@ -12,6 +12,7 @@
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
 
+int		check_file_extension(char *s);
 void	parse_map(char *filename);
 
 #endif

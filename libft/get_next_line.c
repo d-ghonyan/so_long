@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdlib.h>
 #include "libft.h"
 
 static int	has_nl(char *s, int i)
@@ -83,7 +84,7 @@ char	*get_next_line(int fd)
 			return (NULL);
 		}
 		temp[a] = '\0';
-		s = ft_strjoin(s, temp);
+		s = ft_strjoin_gnl(s, temp);
 		if (!s)
 			return (NULL);
 		if (has_nl(s, i) || s[i] == '\0')

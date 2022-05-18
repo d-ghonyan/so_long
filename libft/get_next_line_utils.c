@@ -10,7 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include <stdlib.h>
+
+static size_t	ft_strlen(const char *s)
+{
+	size_t	i;
+
+	i = 0;
+	while (s[i])
+		i++;
+	return (i);
+}
 
 static void	ft_strcpy(char *s1, const char *s2, size_t *i)
 {
@@ -26,16 +36,21 @@ static void	ft_strcpy(char *s1, const char *s2, size_t *i)
 	s1[*i] = '\0';
 }
 
-char	*ft_strjoin(char *s1, char const *s2)
+char	*ft_strjoin_gnl(char *s1, char const *s2)
 {
 	size_t	i;
 	char	*res;
 
 	i = 0;
+	if (s1 == NULL)
+	{
+		s1 = (char *)malloc(sizeof (*s1));
+		s1[0] = '\0';
+	}
 	res = (char *)malloc(sizeof (*res) * (ft_strlen(s1) + ft_strlen(s2) + 1));
 	if (!res)
 		return (NULL);
-	while (i < ft_strlen(s1))
+	while (s1[i])
 	{
 		res[i] = s1[i];
 		i++;

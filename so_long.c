@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <fcntl.h>
-#include <mlx.h>
 #include "so_long.h"
 
 typedef struct s_mlx {
@@ -42,15 +41,9 @@ void	check_args(int argc, char *filename)
 		ft_printf(RED "Too many arguments" COLOR_RESET);
 		exit (EXIT_FAILURE);
 	}
-	if (ft_strlen(filename) < 4)
+	if (check_file_extension(filename))
 	{
-		ft_printf(RED "Wrong map format, must be *.ber" COLOR_RESET);
-		exit (EXIT_FAILURE);
-	}
-	dot = ft_memrchr(filename, '.', 4);
-	if (!dot || ft_strncmp(dot, ".ber", 4))
-	{
-		ft_printf(RED "Wrong map format, must be *.ber" COLOR_RESET);
+		ft_printf(RED "Wrong file extension, must be .ber\n" COLOR_RESET);
 		exit (EXIT_FAILURE);
 	}
 }
@@ -61,8 +54,9 @@ int	main(int argc, char **argv)
 	int width = 50, height = 50;
 	t_mlx	mlx;
 
-	ft_printf(CYAN "%s\n", ft_memrchr(argv[1], '.', 4));
-	// check_args(argc, argv[1]);
+	
+	//ft_printf(CYAN "%d\n", check_file_extension(argv[1]));
+	check_args(argc, argv[1]);
 	// parse_map(argv[1]);
 	// mlx.mlx_ptr = mlx_init();
 	// mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, 400, 400, "Hello");

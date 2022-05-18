@@ -28,3 +28,13 @@ void	parse_map(char *filename)
 	}
 	ft_printf("%d", line_count);
 }
+
+int	check_file_extension(char *s)
+{
+	int	i;
+
+	if (ft_strlen(s) < 4)
+		return (0);
+	i = ft_strlen(s) - 4;
+	return (ft_strncmp(&s[i], ".ber", 4));
+}

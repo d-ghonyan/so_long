@@ -1,19 +1,19 @@
 NAME = so_long
-CC = CC
-CFLAGS = -Wall -Wextra#TODO add flags
-MLX = -lmlx -L /usr/local/include -framework AppKit -framework OpenGL
+CC = cc
+CFLAGS = -Wall -Wextra -c #TODO add flags
+#MLX = -lmlx -L /usr/local/include -framework AppKit -framework OpenGL
 LIBFT = -lft -L libft
 FT_PRINTF = -lftprintf -L ft_printf
 SRCS = $(wildcard *.c)
 OBJS = $(SRCS:.c=.o)
 
 %.c:
-	$(CC) -c $(CFLAGS) $(SRCS)
+	$(CC) $(CFLAGS) $(SRCS)
 
 all: lib ftprintf $(NAME)
 
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(MLX) $(LIBFT) $(FT_PRINTF) -o $(NAME)
+	$(CC) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
 
 ftprintf:
 	cd ft_printf && make
