@@ -62,7 +62,7 @@ int	check_file_extension(char *s)
 	int	i;
 
 	if (ft_strlen(s) < 4)
-		return (0);
+		return (1);
 	i = ft_strlen(s) - 4;
 	return (ft_strncmp(&s[i], ".ber", 4));
 }
