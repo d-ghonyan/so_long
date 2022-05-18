@@ -51,13 +51,23 @@ void	check_args(int argc, char *filename)
 int	main(int argc, char **argv)
 {
 	void	*black_hole;
+	char	**map;
 	int width = 50, height = 50;
 	t_mlx	mlx;
 
 	
-	//ft_printf(CYAN "%d\n", check_file_extension(argv[1]));
+	int i = 5;
 	check_args(argc, argv[1]);
-	// parse_map(argv[1]);
+	line_count(argv[1]);
+//	int fd = open("maps/map1.ber", O_RDONLY);
+//	while (i--)
+//		ft_printf("%s", get_next_line(fd));
+	//map = parse_map(argv[1]);
+//	while (*map)
+//	{
+//		ft_printf("%s", *map);
+//		map++;
+//	}
 	// mlx.mlx_ptr = mlx_init();
 	// mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, 400, 400, "Hello");
 	// mlx_key_hook(mlx.win_ptr, &key_hook, &mlx);

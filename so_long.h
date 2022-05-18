@@ -13,6 +13,13 @@
 # include "ft_printf/ft_printf.h"
 
 int		check_file_extension(char *s);
-void	parse_map(char *filename);
+
+char	**parse_map(char *filename);
+
+void	perror_exit_cond(char *errmsg, int cond);
+
+void	free_stuff_and_exit(char **arr, char *s, char *errmsg);
+
+void	free_ptr_arr(char **arr);
 
 #endif
