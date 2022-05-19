@@ -6,13 +6,13 @@ SRCS = $(wildcard *.c)
 	
 OBJS = $(SRCS:.c=.o)
 
+%.c:
+	$(CC) $(CFLAGS) $(SRCS)
+
 all: $(NAME)
 
 $(NAME): $(OBJS)
 	$(ARCHIVE) $(NAME) $(OBJS) 
-
-$(OBJS):
-	$(CC) $(CFLAGS) $(SRCS)
 
 clean:
 	rm -f *.o

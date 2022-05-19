@@ -8,6 +8,7 @@ int	line_count(char *s)
 
 	line_count = 0;
 	fd = open(s, O_RDONLY);
+	line = NULL;
 	if (fd < 0)
 	{
 		perror("Can't open the map");

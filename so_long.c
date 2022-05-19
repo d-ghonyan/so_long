@@ -50,15 +50,26 @@ void	check_args(int argc, char *filename)
 
 int	main(int argc, char **argv)
 {
-	void	*black_hole;
-	char	**map;
-	int width = 50, height = 50;
-	t_mlx	mlx;
+//	void	*black_hole;
+//	char	**map;
+//	int width = 50, height = 50;
+//	t_mlx	mlx;
 
-	
-	int i = 5;
-	check_args(argc, argv[1]);
-	line_count(argv[1]);
+	int i = 10;
+	int f1 = open("maps/map1.ber", O_RDONLY);
+	int f2 = open("maps/map1.ber", O_RDONLY);
+	int f3 = open("maps/map1.ber", O_RDONLY);
+	//ft_printf("%s", get_next_line_new(f1));
+	get_next_line_new(f1);
+//	i = 10;
+//	while (i--)
+//	{
+//		ft_printf(CYAN "%s", get_next_line(f2));
+//	}
+//	check_args(argc, argv[1]);
+//	line_count(argv[1]);
+//	line_count(argv[1]);
+//	line_count(argv[1]);
 //	int fd = open("maps/map1.ber", O_RDONLY);
 //	while (i--)
 //		ft_printf("%s", get_next_line(fd));

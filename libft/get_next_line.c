@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include <unistd.h>
+#include <stdio.h>
 #include <stdlib.h>
 #include "libft.h"
 
@@ -67,7 +68,8 @@ static char	*get_line(char *s, int *i)
 
 char	*get_next_line(int fd)
 {
-	static char	*s = NULL;
+	static char	*s[FOPEN_MAX];
+	//static char	*s = NULL;
 	static int	i = 0;
 	char		temp[BUFFER_SIZE + 1];
 	int			a;
@@ -78,17 +80,18 @@ char	*get_next_line(int fd)
 	while (a != 0)
 	{
 		a = read(fd, temp, BUFFER_SIZE);
-		if (a == -1 || (a == 0 && (!s || s[i] == '\0')))
+		if (a == -1 || (a == 0 && (!s[fd] || s[fd][i] == '\0')))
 		{
-			free((void *)s);
+			free((void *)(s[fd]));
+			i = 0;
 			return (NULL);
 		}
 		temp[a] = '\0';
-		s = ft_strjoin_gnl(s, temp);
-		if (!s)
+		s[fd] = ft_strjoin_gnl(s[fd], temp);
+		if (!s[fd])
 			return (NULL);
-		if (has_nl(s, i) || s[i] == '\0')
+		if (has_nl(s[fd], i) || s[fd][i] == '\0')
 			break ;
 	}
-	return (get_line(s, &i));
+	return (get_line(s[fd], &i));
 }
