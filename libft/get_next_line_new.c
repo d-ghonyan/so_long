@@ -3,63 +3,74 @@
 #include <unistd.h>
 #include <stdio.h>
 
-static char	*ft_realloc(char *s, int size)
+static void	perror_exit_cond(char *errmsg, int cond)
 {
-	int		i;
+	if (cond)
+	{
+		perror(errmsg);
+		exit (EXIT_FAILURE);
+	}
+}
+
+static char	*ft_strjoin_for_read(char *s, char c)
+{
+	size_t	i;
 	char	*res;
 
 	i = 0;
-	if (!s)
-	{
-		res = (char *)malloc(sizeof (*res) + 1);
-		if (!res)
-			return (NULL);
-		res[1] = '\0';
-		return (res);
-	}
-	res = malloc((ft_strlen(s) + size + 1) * sizeof (*res));
+	res = (char *)malloc(sizeof (*res) * (ft_strlen(s) + 2));
 	if (!res)
 		return (NULL);
-	while (s[i])
+	while (i < ft_strlen(s))
 	{
 		res[i] = s[i];
 		i++;
 	}
 	free(s);
-	res[i] = '\0';
+	res[i] = c;
+	res[i + 1] = '\0';
 	return (res);
 }
+
+static void	free_ptr_arr(char **arr)
+{
+	while (*arr)
+	{
+		free(*arr);
+		arr++;
+	}
+	free(arr);
+}
+
+static void	free_stuff_and_exit(char **arr, char *s, char *errmsg)
+{
+	if (errmsg)
+		perror (errmsg);
+	if (arr)
+		free_ptr_arr(arr);
+	free(s);
+	exit (EXIT_FAILURE);
+}
+
 
 char	*get_next_line_new(int fd)
 {
 	char	*s;
+	char	c;
 	int		a;
-	int		i;
 
-	a = 1;
-	i = 0;
 	s = NULL;
-	while (a != 0)
+	while (1)
 	{
-		s = ft_realloc(s, 1);
-		if (!s)
-			return (NULL);
-		a = read(fd, &s[i], 1);
-		printf("%s", s);
+		a = read(fd, &c, 1);
 		if (a == -1)
-		{
-			free(s);
-			return (NULL);
-		}
-		if (a == EOF || s[i] == '\n')
-		{
-			if (s[i] == '\n')
-				i++;
-			break ;
-		}
-		i++;
+			free_stuff_and_exit(NULL, s, "read() failed at gnl_new()");
+		if (a == 0)
+			return (s);
+		s = ft_strjoin_for_read(s, c);
+		perror_exit_cond("strjoin() failed at gnl_new()", !s);
+		if (c == '\n')
+			return (s);
 	}
-	//printf("%s", s);
-	//s[i] = '\0';
-	return (s);
+	return (NULL);
 }

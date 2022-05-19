@@ -13,7 +13,8 @@ void	free_stuff_and_exit(char **arr, char *s, char *errmsg)
 {
 	if (errmsg)
 		perror (errmsg);
-	free_ptr_arr(arr);
+	if (arr)
+		free_ptr_arr(arr);
 	free(s);
 	exit (EXIT_FAILURE);
 }
