@@ -39,27 +39,15 @@ static int	middle(char *s)
 	return (s[0] == '1' && s[ft_strlen(s) - 1] == '1');
 }
 
-static int	map_chars_heck(char *s)
+static int	map_chars_check(char **map)
 {
-	int		i;
-	int		j;
-	char	*allowed;
-
-	i = 0;
-	j = 0;
-	allowed = "01PEC";
-	while (allowed[i])
+	
+	if (!is_allowed(map, "01PEC"))
 	{
-		while (s[j])
-		{
-			if (!is_allowed(s, allowed[i]))
-			{
-				ft_printf(RED "invalid characters in the map\n" COLOR_RESET);
-				return (0);
-			}
-		}
+		ft_printf(RED "Invalid characters in the map" COLOR_RESET);
+		return (0);
 	}
-	return (at_least_one(s));
+	return (at_least_one(map));
 }
 
 int	map_check(char **map)
@@ -68,19 +56,15 @@ int	map_check(char **map)
 	int	len;
  
 	i = 0;
-	if (!map_len_check(map))
+	if (!map_len_check(map) || !map_chars_check(map))
 		return (0);
 	len = ptr_arr_len(map);
 	while (map[i])
 	{
-		if ((i == 0 || i == len - 1) && !first_last(map[i]))
+		if (((i == 0 || i == len - 1) && !first_last(map[i]))
+			|| ((i > 0 && i < len - 1) && !middle(map[i])))
 		{
 			ft_printf(RED "map isn't surrounded by walls\n" COLOR_RESET);
-			return (0);
-		}
-		else if ((i > 0 && i < len - 1) && !middle(map[i]))
-		{
-			ft_printf(MAGENTA "map isn't surrounded by walls\n" COLOR_RESET);
 			return (0);
 		}
 		i++;
