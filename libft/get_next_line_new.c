@@ -67,10 +67,10 @@ char	*get_next_line_new(int fd)
 			free_stuff_and_exit(NULL, s, "read() failed at gnl_new()");
 		if (a == 0)
 			return (s);
-		s = ft_strjoin_for_read(s, c);
-		perror_exit_cond("strjoin() failed at gnl_new()", !s);
 		if (c == '\n')
 			return (s);
+		s = ft_strjoin_for_read(s, c);
+		perror_exit_cond("strjoin() failed at gnl_new()", !s);
 	}
 	return (NULL);
 }

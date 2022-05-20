@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+void	free_ptr_arr(char **arr);
+
 static size_t	count(char const *s, char c)
 {
 	size_t	count;
@@ -72,6 +74,12 @@ static char	*ft_strdup(const char *s, char c, size_t len, size_t *i)
 	return (tmp);
 }
 
+static char	**hello(char **arr)
+{
+	free_ptr_arr(arr);
+	return (NULL);
+}
+
 char	**ft_split(char const *s, char c)
 {
 	char	**res;
@@ -87,7 +95,7 @@ char	**ft_split(char const *s, char c)
 		{
 			*res = ft_strdup(s, c, ft_strlen(s, c, i) + 1, &i);
 			if (!(*res))
-				return (NULL);
+				return (hello(res));
 			res++;
 		}
 		if (!s[i])

@@ -59,10 +59,16 @@ int	main(int argc, char **argv)
 	int f1 = open("maps/map1.ber", O_RDONLY);
 	int f2 = open("maps/map1.ber", O_RDONLY);
 	int f3 = open("maps/map1.ber", O_RDONLY);
-	char **lines = parse_map("maps/map1.ber");
-	
-	while (*lines)
-		ft_printf("%s", *(lines++));
+	char **map = parse_map("maps/map1.ber");
+
+	if (!map_check(map))
+	{
+		free_ptr_arr(map);
+		exit (EXIT_FAILURE);
+	}
+	//free_stuff_and_exit_cond(map, NULL, NULL, !map_check(map));
+	while (*map)
+		ft_printf("%s ", *(map++));
 	//get_next_line_new(f1);
 //	i = 10;
 //	while (i--)

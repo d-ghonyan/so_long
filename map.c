@@ -33,7 +33,8 @@ char	**parse_map(char *filename)
 	int		map;
 	char	**line_arr;
 
-	line_arr = (char **)malloc(sizeof (*line_arr) * (line_count(filename) + 1));
+	count = line_count(filename);
+	line_arr = (char **)malloc(sizeof (*line_arr) * (count + 1));
 	perror_exit_cond("Can't allocate memory at parse_map", !line_arr);
 	map = open(filename, O_RDONLY);
 	if (map < 0)
@@ -49,7 +50,7 @@ char	**parse_map(char *filename)
 	close(map);
 	if (i == 0 || i < count)
 		free_stuff_and_exit(line_arr, NULL, "get_next_line failed");
-	line_arr[i] = NULL;
+	//line_arr[i] = NULL;
 	return (line_arr);
 }
 

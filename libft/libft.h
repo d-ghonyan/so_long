@@ -20,6 +20,9 @@
 #  define BUFFER_SIZE 1
 # endif
 
+//NEW STUFF
+int		ptr_arr_len(char **arr);
+//NEW STUFF
 int		ft_toupper(int c);
 int		ft_tolower(int c);
 int		ft_isdigit(int c);
@@ -51,8 +54,8 @@ char	*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 char	*ft_strjoin(char const *s1, char const *s2);
 char	*ft_strdup(const char *s1);
 char	*ft_itoa(int n);
-char	*get_next_line_new(int fd);
 //GNL
+char	*get_next_line_new(int fd);
 char	*get_next_line(int fd);
 char	*ft_strjoin_gnl(char const *s1, char const *s2);
 //GNL

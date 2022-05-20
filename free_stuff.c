@@ -19,12 +19,29 @@ void	free_stuff_and_exit(char **arr, char *s, char *errmsg)
 	exit (EXIT_FAILURE);
 }
 
+void	free_stuff_and_exit_cond(char **arr, char *s, char *errmsg, int cond)
+{
+	if (cond)
+	{
+		if (errmsg)
+			perror (errmsg);
+		if (arr)
+			free_ptr_arr(arr);
+		if (s)
+			free(s);
+		exit (EXIT_FAILURE);
+	}
+}
+
 void	free_ptr_arr(char **arr)
 {
-	while (*arr)
+	int	i;
+
+	i = 0;
+	while (arr[i])
 	{
-		free(*arr);
-		arr++;
+		free(arr[i]);
+		i++;
 	}
 	free(arr);
 }

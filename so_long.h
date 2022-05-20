@@ -14,11 +14,15 @@
 
 int		check_file_extension(char *s);
 
+int		map_check(char **map);
+
 char	**parse_map(char *filename);
 
 void	perror_exit_cond(char *errmsg, int cond);
 
 void	free_stuff_and_exit(char **arr, char *s, char *errmsg);
+
+void	free_stuff_and_exit_cond(char **arr, char *s, char *errmsg, int cond);
 
 void	free_ptr_arr(char **arr);
 
