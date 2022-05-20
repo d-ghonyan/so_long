@@ -3,11 +3,15 @@
 static void	yay(int p, int c, int e)
 {
 	if (p == 0)
-		ft_printf(BLUE "you forgot the player\n" COLOR_RESET);
+		ft_printf(BLUE "You forgot the player\n" COLOR_RESET);
+	else if (p > 1)
+		ft_printf(BLUE "Too many players\n" COLOR_RESET);
 	else if (c == 0)
-		ft_printf(YELLOW "you forgot the collectables\n" COLOR_RESET);
+		ft_printf(YELLOW "You forgot the collectables\n" COLOR_RESET);
 	else if (e == 0)
-		ft_printf(CYAN "you forgot the exit\n" COLOR_RESET);
+		ft_printf(CYAN "You forgot the exit\n" COLOR_RESET);
+	else if (e > 1)
+		ft_printf(CYAN "Too many exits\n" COLOR_RESET);
 }
 
 static int	is_in_set(char *set, char c)
@@ -69,6 +73,6 @@ int	at_least_one(char **s)
 		}
 		i++;
 	}
-	yay(chars.p, chars.e, chars.c);
-	return (chars.e != 0 && chars.p != 0 && chars.c != 0);
+	yay(chars.p, chars.c, chars.e);
+	return (chars.e == 1 && chars.p == 1 && chars.c != 0);
 }

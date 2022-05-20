@@ -12,7 +12,7 @@ static int	map_len_check(char **map)
 			len = ft_strlen(map[i]);
 		if (len != ft_strlen(map[i]))
 		{
-			ft_printf(RED "map must be a rectangle\n" COLOR_RESET);
+			ft_printf(RED "Map must be a rectangle\n" COLOR_RESET);
 			return (0);
 		}
 		i++;
@@ -44,7 +44,7 @@ static int	map_chars_check(char **map)
 	
 	if (!is_allowed(map, "01PEC"))
 	{
-		ft_printf(RED "Invalid characters in the map" COLOR_RESET);
+		ft_printf(RED "Invalid characters in the map\n" COLOR_RESET);
 		return (0);
 	}
 	return (at_least_one(map));
@@ -64,7 +64,7 @@ int	map_check(char **map)
 		if (((i == 0 || i == len - 1) && !first_last(map[i]))
 			|| ((i > 0 && i < len - 1) && !middle(map[i])))
 		{
-			ft_printf(RED "map isn't surrounded by walls\n" COLOR_RESET);
+			ft_printf(RED "Map isn't surrounded by walls\n" COLOR_RESET);
 			return (0);
 		}
 		i++;

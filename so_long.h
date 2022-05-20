@@ -12,14 +12,18 @@
 # include "libft/libft.h"
 # include "ft_printf/ft_printf.h"
 
-typedef struct s_chars
-{
+typedef struct s_mlx {
+	void	*mlx_ptr;
+	void	*win_ptr;
+}	t_mlx;
+
+typedef struct s_chars {
 	int	p;
 	int	c;
 	int	e;
 }	t_chars;
 
-int		is_allowed(char **map, char *allowed)
+int		is_allowed(char **map, char *allowed);
 
 int		at_least_one(char **s);
 

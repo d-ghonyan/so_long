@@ -3,11 +3,6 @@
 #include <fcntl.h>
 #include "so_long.h"
 
-typedef struct s_mlx {
-	void	*mlx_ptr;
-	void	*win_ptr;
-}	t_mlx;
-
 int	key_hook(int keycode, t_mlx mlx)
 {
 	(void)mlx;
@@ -55,20 +50,15 @@ int	main(int argc, char **argv)
 //	int width = 50, height = 50;
 //	t_mlx	mlx;
 
-	int i = 10;
-	int f1 = open("maps/map1.ber", O_RDONLY);
-	int f2 = open("maps/map1.ber", O_RDONLY);
-	int f3 = open("maps/map1.ber", O_RDONLY);
+//	int i = 10;
+//	int f1 = open("maps/map1.ber", O_RDONLY);
+//	int f2 = open("maps/map1.ber", O_RDONLY);
+//	int f3 = open("maps/map1.ber", O_RDONLY);
 	char **map = parse_map("maps/map1.ber");
 
-	if (!map_check(map))
-	{
-		free_ptr_arr(map);
-		exit (EXIT_FAILURE);
-	}
-	//free_stuff_and_exit_cond(map, NULL, NULL, !map_check(map));
-	while (*map)
-		ft_printf("%s ", *(map++));
+	free_stuff_and_exit_cond(map, NULL, NULL, !map_check(map));
+//	while (*map)
+//		ft_printf("%s ", *(map++));
 	//get_next_line_new(f1);
 //	i = 10;
 //	while (i--)
@@ -88,20 +78,5 @@ int	main(int argc, char **argv)
 //		ft_printf("%s", *map);
 //		map++;
 //	}
-	// mlx.mlx_ptr = mlx_init();
-	// mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, 400, 400, "Hello");
-	// mlx_key_hook(mlx.win_ptr, &key_hook, &mlx);
-	// mlx_hook(mlx.win_ptr, 17, 0, &destroy_hook, &mlx);
-	// // png = mlx_xpm_file_to_image(mlx.mlx_ptr, "skybox.xpm", &width, &height);
-	// // wooden = mlx_xpm_file_to_image(mlx.mlx_ptr, "wooden.xpm", &width, &height);
-	// black_hole = mlx_xpm_file_to_image(mlx.mlx_ptr, "blackHole.xpm", &width, &height);
-
-	// for (int i = 0; i < 400; i += width)
-	// 	for (int j = 0; j < 400; j += height)
-	// 		mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, black_hole, i, j);
-
-	// //ft_printf("%d %d\n", width, height);
-	// //mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, wooden, 0, 0);
-	// // image = mlx_new_image(mlx.mlx_ptr, 50, 50);
-	// mlx_loop(mlx.mlx_ptr);
+	//
 }
