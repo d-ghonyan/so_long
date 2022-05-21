@@ -89,7 +89,7 @@ static void	ft_strcpy(char *s1, const char *s2)
 	s1[j] = '\0';
 }
 
-void	mlx_init_stuff(char **map)
+void	mlx_init_stuff(char **map, char *filename)
 {
 	t_mlx		mlx;
 	t_chars		size;
@@ -97,17 +97,21 @@ void	mlx_init_stuff(char **map)
 	mlx.mlx_ptr = mlx_init();
 	mlx.floor = allocate_floor(mlx.mlx_ptr, map);
 	mlx.player = allocate_player(mlx.mlx_ptr);
+	mlx.walls = allocate_walls(mlx.mlx_ptr, map);
+	mlx.map = parse_map(filename);
 	// mlx.collect = allocate_collect(mlx.mlx_ptr, map);
-	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.floor[0]->w * ft_strlen(map[0]), mlx.floor[0]->h * ptr_arr_len(map), "Hello");
+	mlx.player->posx = get_player_position(map).x * mlx.player->w;
+	mlx.player->posy = get_player_position(map).y * mlx.player->h;
+
+	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.player->w * ft_strlen(map[0]), mlx.player->h * ptr_arr_len(map), "Hello");
 	mlx.win_size_w = mlx.floor[0]->w * ft_strlen(map[0]);
 	mlx.win_size_h = mlx.floor[0]->h * ptr_arr_len(map);
 
-	// draw_floor(&mlx, map);
-	// draw_walls(&mlx, map);
-	// mlx.player->posx = get_player_position(map).x * mlx.player->w;
-	// mlx.player->posy = get_player_position(map).y * mlx.player->h;
-	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.player->img, mlx.player->posx, (mlx.player)->h);
+	draw_floor(&mlx, map);
+	draw_walls(&mlx, map);
 
+	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.player->img, mlx.player->posx, (mlx.player)->h);
+	
 	mlx_key_hook(mlx.win_ptr, &key_hook, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 0, &hook, 0);
 	// mlx_do_key_autorepeaton(mlx.mlx_ptr);

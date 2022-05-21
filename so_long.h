@@ -14,6 +14,10 @@
 
 # define SO_LONG_H
 
+# define PLAYER_IMG "images/C.xpm"
+# define WALL_IMG "images/E.xpm"
+# define FLOOR_IMG "images/0.xpm"
+
 # include "mlx/mlx.h"
 # include <stdio.h>
 # include <fcntl.h>
@@ -41,6 +45,14 @@ typedef struct s_img {
 	int		h;
 }	t_img;
 
+typedef struct s_walls {
+	void	*img;
+	int		i;
+	int		j;
+	int		w;
+	int		h;
+}	t_walls;
+
 typedef struct s_player {
 	void	*img;
 	int		w;
@@ -52,17 +64,17 @@ typedef struct s_player {
 typedef struct s_mlx {
 	t_img		**floor;
 	t_img		**collects;	
+	t_walls		**walls;
 	t_img		*exit;
-	t_img		*walls;
 	t_player	*player;
-	//char		**map;
+	char		**map;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			win_size_w;
 	int			win_size_h;
 }	t_mlx;
 
-void		mlx_init_stuff(char **map);
+void		mlx_init_stuff(char **map, char *filename);
 
 int			is_allowed(char **map, char *allowed);
 
@@ -88,7 +100,10 @@ void		draw_walls(t_mlx *mlx, char **map);
 
 t_img		**allocate_floor(void *mlx_ptr, char **map);
 
+t_walls		**allocate_walls(void *mlx_ptr, char **map);
+
 t_pos		get_player_position(char **map);
+
 
 t_player	*allocate_player(void *mlx_ptr);
 

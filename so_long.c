@@ -47,5 +47,5 @@ int	main(int argc, char **argv)
 
 	check_args(argc, argv[1]);
 	free_stuff_and_exit_cond(map, NULL, NULL, !map_check(map));
-	mlx_init_stuff(map);
+	mlx_init_stuff(map, argv[1]);
 }

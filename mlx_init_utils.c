@@ -32,13 +32,50 @@ t_img	**allocate_floor(void *mlx_ptr, char **map)
 			floor[k] = malloc(sizeof (**floor));
 			if (!floor[k])
 				ft_printf(MAGENTA "OH NO AGAIN" COLOR_RESET);
-			floor[k]->img = mlx_xpm_file_to_image(mlx_ptr, "images/0.xpm", &(floor[k]->w), &(floor[k]->h));
+			floor[k]->img = mlx_xpm_file_to_image(mlx_ptr, FLOOR_IMG, &(floor[k]->w), &(floor[k]->h));
 			k++;
 		}
 		i++;
 	}
 	floor[k] = NULL;
 	return (floor);
+}
+
+t_walls	**allocate_walls(void *mlx_ptr, char **map)
+{
+	int		i;
+	int		j;
+	int		k;
+	t_walls	**walls;
+
+	i = 0;
+	k = 0;
+	walls = malloc(sizeof (*walls) * (ft_strlen(map[0]) * ptr_arr_len(map) + 1));
+	if (!walls)
+		ft_printf(RED "OH NO" COLOR_RESET);
+	while (map[i])
+	{
+		j = 0;
+		while (map[i][j])
+		{
+			if (map[i][j] == '1')
+			{
+				walls[k] = malloc(sizeof (**walls));
+				if (!walls[k])
+					ft_printf(MAGENTA "OH NO AGAIN WALLS" COLOR_RESET);
+				walls[k]->i = i;
+				walls[k]->j = j;
+				walls[k]->img = mlx_xpm_file_to_image(mlx_ptr, WALL_IMG, &(walls[k]->w), &(walls[k]->h));
+				if (!walls[k]->img)
+					ft_printf(YELLOW "OH NO AGAIN WALLS IMG" COLOR_RESET);
+				k++;
+			}
+			j++;
+		}
+		i++;
+	}
+	walls[k] = NULL;
+	return (walls);
 }
 
 void	draw_floor(t_mlx *mlx, char **map)
@@ -54,7 +91,8 @@ void	draw_floor(t_mlx *mlx, char **map)
 		j = 0;
 		while (map[i][j])
 		{
-			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->floor[k]->img, j * (mlx->floor[k])->w, i * (mlx->floor[k])->h);
+			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->floor[k]->img,
+				j * (mlx->floor[k])->w, i * (mlx->floor[k])->h);
 			k++;
 			j++;
 		}
@@ -66,13 +104,9 @@ void	draw_walls(t_mlx *mlx, char **map)
 {
 	int		i;
 	int		j;
-	int		x;
-	int		y;
-	void	*img;
+	int		k;
 
-	mlx->walls->img = mlx_xpm_file_to_image(mlx->mlx_ptr, "images/E.xpm", &x, &y);
-	if (!img)
-		ft_printf("mlx failed at draw_walls");
+	k = 0;
 	i = 0;
 	while (map[i])
 	{
@@ -80,7 +114,11 @@ void	draw_walls(t_mlx *mlx, char **map)
 		while (map[i][j])
 		{
 			if (map[i][j] == '1')
-				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->walls->img, j * x, i * y);
+			{
+				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+					mlx->walls[k]->img, j * mlx->walls[k]->w, i * mlx->walls[k]->h);
+				k++;
+			}
 			j++;
 		}
 		i++;
@@ -121,7 +159,7 @@ t_player	*allocate_player(void *mlx_ptr)
 	player = malloc(sizeof (*player));
 	if (!player)
 		ft_printf(RED "PLAYER IS DEAD");
-	player->img = mlx_xpm_file_to_image(mlx_ptr, "images/P.xpm", &((player)->w), &((player)->h));
+	player->img = mlx_xpm_file_to_image(mlx_ptr, PLAYER_IMG, &((player)->w), &((player)->h));
 	if (!player->img)
 		ft_printf(MAGENTA "mlxfailed at player");
 	return (player);
