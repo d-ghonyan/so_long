@@ -3,7 +3,7 @@
 //w = 13, a = 0, s = 1, d = 2
 //left = 123 up = 126 down = 125 right = 124
 
-void	call_move(int keycode, t_mlx *mlx)
+static void	call_move(int keycode, t_mlx *mlx)
 {
 	if ((keycode == 13 || keycode == 126) && mlx->player->posy >= mlx->player->h)
 	{
