@@ -24,7 +24,7 @@ static void	call_move(int keycode, t_mlx *mlx)
 		&& (mlx->map)[mlx->player->posx / mlx->player->w - 1][mlx->player->posy / mlx->player->h] != '1'
 		)
 	{
-		//ft_printf("AASDASDASD");
+		ft_printf("AASDASDASD");
 		move_up(mlx);
 	}
 	else if ((keycode == 1 || keycode == 125)
