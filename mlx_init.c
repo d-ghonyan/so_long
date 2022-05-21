@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dghonyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/21 19:47:41 by dghonyan          #+#    #+#             */
+/*   Updated: 2022/05/21 19:47:46 by dghonyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 // t_chars	calculate_size(t_images *img, char **map)
@@ -82,94 +94,44 @@ void	mlx_init_stuff(char **map)
 	t_mlx		mlx;
 	t_chars		size;
 
-	int	i;
-	int	j;
-	int	k;
-
-	i = 0;
-	k = 0;
-	mlx.imgs = malloc(sizeof (*mlx.imgs) * (ptr_arr_len(map) * ft_strlen(map[0]) + 1));
-
-	if (!mlx.imgs)
-		ft_printf(CYAN "OH NO");
-
 	mlx.mlx_ptr = mlx_init();
+	mlx.floor = allocate_floor(mlx.mlx_ptr, map);
+	mlx.player = allocate_player(mlx.mlx_ptr);
+	// mlx.collect = allocate_collect(mlx.mlx_ptr, map);
+	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.floor[0]->w * ft_strlen(map[0]), mlx.floor[0]->h * ptr_arr_len(map), "Hello");
+	mlx.win_size_w = mlx.floor[0]->w * ft_strlen(map[0]);
+	mlx.win_size_h = mlx.floor[0]->h * ptr_arr_len(map);
 
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			mlx.imgs[k] = malloc(sizeof (**mlx.imgs));
-			(mlx.imgs[k])->img = mlx_xpm_file_to_image(mlx.mlx_ptr, "images/0.xpm", &((mlx.imgs[k])->w), &((mlx.imgs[k])->h));
-			k++;
-			j++;
-		}
-		i++;
-	}
-
-
-	mlx.imgs[k] = NULL;
-
-	mlx.player = malloc(sizeof (*mlx.player));
-	if (!mlx.player)
-		ft_printf(YELLOW "OH NO AGAIN" COLOR_RESET);
-	mlx.player->img = mlx_xpm_file_to_image(mlx.mlx_ptr, "images/P.xpm", &((mlx.player)->w), &((mlx.player)->h));
-
-	mlx.player->posx = 2 * mlx.player->w;
-	mlx.player->posy = mlx.player->h * 2;
-
-	ft_printf(MAGENTA "%d %d %d %d\n", mlx.player->w, mlx.player->h, mlx.player->posx, mlx.player->posy);
-
-	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr, mlx.imgs[0]->w * ft_strlen(map[0]), mlx.imgs[0]->h * ptr_arr_len(map), "Hello");
-	mlx.win_size_w = mlx.imgs[0]->w * ft_strlen(map[0]);
-	mlx.win_size_h = mlx.imgs[0]->h * ptr_arr_len(map);
-	i = 0;
-	k = 0;
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.imgs[k]->img, j * (mlx.imgs[k])->w, i * (mlx.imgs[k])->h);
-			k++;
-			j++;
-		}
-		i++;
-	}
-	i = 2;
-	j = 2;
-
-	mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.player->img, j * (mlx.player)->w, i * (mlx.player)->h);
-
-
-	i = 0;
-	k = 0;
+	// draw_floor(&mlx, map);
+	// draw_walls(&mlx, map);
+	// mlx.player->posx = get_player_position(map).x * mlx.player->w;
+	// mlx.player->posy = get_player_position(map).y * mlx.player->h;
+	// mlx_put_image_to_window(mlx.mlx_ptr, mlx.win_ptr, mlx.player->img, mlx.player->posx, (mlx.player)->h);
 
 	mlx_key_hook(mlx.win_ptr, &key_hook, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 0, &hook, 0);
-	mlx_do_key_autorepeaton(mlx.mlx_ptr);
+	// mlx_do_key_autorepeaton(mlx.mlx_ptr);
 	mlx_loop(mlx.mlx_ptr);
 }
 
-			// if (map[i][j] == '1')
-			// 	ft_strcpy(path, "images/1.xpm");
-			// else if (map[i][j] == 'P')
-			// 	ft_strcpy(path, "images/P.xpm");
-			// else if (map[i][j] == 'E')
-			// 	ft_strcpy(path, "images/E.xpm");
-			// else if (map[i][j] == 'C')
-			// 	ft_strcpy(path, "images/C.xpm");
-			// else
+// if (map[i][j] == '1')
+// 	ft_strcpy(path, "images/1.xpm");
+// else if (map[i][j] == 'P')
+// 	ft_strcpy(path, "images/P.xpm");
+// else if (map[i][j] == 'E')
+// 	ft_strcpy(path, "images/E.xpm");
+// else if (map[i][j] == 'C')
+// 	ft_strcpy(path, "images/C.xpm");
+// else
 
-				// while (map[i])
-	// {
-	// 	j = 0;
-	// 	while (map[i][j])
-	// 	{
-	// 		mlx_destroy_image(mlx.mlx_ptr, mlx.imgs[k]->img);
-	// 		k++;
-	// 		j++;
-	// 	}
-	// 	i++;
-	// }
+	// while (map[i])
+// {
+// 	j = 0;
+// 	while (map[i][j])
+// 	{
+// 		mlx_destroy_image(mlx.mlx_ptr, mlx.floor[k]->img);
+// 		k++;
+// 		j++;
+// 	}
+// 	i++;
+// }

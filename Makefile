@@ -1,7 +1,8 @@
 NAME = so_long
 CC = cc
 CFLAGS = -c #-Wall -Wextra #TODO add flags
-MLX = -lmlx -L /usr/local/include -framework AppKit -framework OpenGL
+# MLX = -lmlx -L /usr/local/include -framework AppKit -framework OpenGL
+MLX = -lmlx -L mlx -framework AppKit -framework OpenGL
 LIBFT = -lft -L libft
 FT_PRINTF = -lftprintf -L ft_printf
 SRCS = $(wildcard *.c)
