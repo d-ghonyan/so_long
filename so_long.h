@@ -18,50 +18,30 @@ typedef struct s_chars {
 	int	e;
 }	t_chars;
 
+typedef struct s_img {
+	void	*img;
+	int		w;
+	int		h;
+}	t_img;
+
 typedef struct s_player {
+	void	*img;
 	int		w;
 	int		h;
 	int		posx;
 	int		posy;
-	void	*img;
 }	t_player;
 
-typedef struct s_wall {
-	int		w;
-	int		h;
-	void	*img;
-}	t_wall;
-
-typedef struct s_empty {
-	int		w;
-	int		h;
-	void	*img;
-}	t_empty;
-
-typedef struct s_collect {
-	int		w;
-	int		h;
-	void	*img;
-}	t_collect;
-
-typedef struct s_exit {
-	int		w;
-	int		h;
-	void	*img;
-}	t_exit;
-
-typedef struct s_images {
-	t_player	*player;
-	t_wall		*wall;
-	t_empty		*empty;
-	t_collect	*collect;
-	t_exit		*exit;
-}	t_images;
-
 typedef struct s_mlx {
+	t_img		**imgs;
+	t_img		**walls;
+	t_img		**collects;	
+	t_img		*exit;
+	t_player	*player;
 	void		*mlx_ptr;
 	void		*win_ptr;
-	t_images	*img;
+	int			win_size_w;
+	int			win_size_h;
 }	t_mlx;
 
 void	mlx_init_stuff(char **map);
@@ -89,5 +69,12 @@ int		key_hook(int keycode, t_mlx *mlx);
 int		mouse_hook(int button, int x, int y, void *param);
 int		hook(void *param);
 //HOOKS
+
+//MOVE PLAYER
+void	move_up(t_mlx *mlx);
+void	move_down(t_mlx *mlx);
+void	move_left(t_mlx *mlx);
+void	move_right(t_mlx *mlx);
+//MOVE PLAYER
 
 #endif
