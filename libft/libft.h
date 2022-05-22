@@ -22,6 +22,7 @@
 
 //NEW STUFF
 int		ptr_arr_len(char **arr);
+void	free_ptr_arr(char **arr);
 //NEW STUFF
 int		ft_toupper(int c);
 int		ft_tolower(int c);
@@ -56,7 +57,6 @@ char	*ft_strdup(const char *s1);
 char	*ft_itoa(int n);
 //GNL
 char	*get_next_line_new(int fd);
-char	*get_next_line(int fd);
 char	*ft_strjoin_gnl(char const *s1, char const *s2);
 //GNL
 char	**ft_split(char const *s, char c);

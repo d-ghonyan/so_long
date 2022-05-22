@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dghonyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/21 19:47:41 by dghonyan          #+#    #+#             */
+/*   Updated: 2022/05/21 19:47:46 by dghonyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 void	perror_exit_cond(char *errmsg, int cond)
@@ -31,17 +43,4 @@ void	free_stuff_and_exit_cond(char **arr, char *s, char *errmsg, int cond)
 			free(s);
 		exit (EXIT_FAILURE);
 	}
-}
-
-void	free_ptr_arr(char **arr)
-{
-	int	i;
-
-	i = 0;
-	while (arr[i])
-	{
-		free(arr[i]);
-		i++;
-	}
-	free(arr);
 }

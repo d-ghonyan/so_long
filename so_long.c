@@ -38,14 +38,17 @@ void	check_args(int argc, char *filename)
 
 int	main(int argc, char **argv)
 {
-//	void	*black_hole;
-//	char	**map;
-//	int width = 50, height = 50;
-//	t_mlx	mlx;
+	char	**map;
 
-	char **map = parse_map("maps/map1.ber");
-
+	map = parse_map("maps/map1.ber");
 	check_args(argc, argv[1]);
+	if (!map)
+	{
+		// ft_printf("")
+		free_ptr_arr(map);
+		exit(EXIT_FAILURE);
+	}
 	free_stuff_and_exit_cond(map, NULL, NULL, !map_check(map));
-	mlx_init_stuff(map, argv[1]);
+	free_ptr_arr(map);
+	mlx_init_stuff(argv[1]);
 }

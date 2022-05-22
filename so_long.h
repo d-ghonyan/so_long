@@ -14,9 +14,11 @@
 
 # define SO_LONG_H
 
-# define PLAYER_IMG "images/C.xpm"
-# define WALL_IMG "images/E.xpm"
+# define PLAYER_IMG "images/P.xpm"
+# define WALL_IMG "images/1.xpm"
 # define FLOOR_IMG "images/0.xpm"
+# define COLLECT_IMG "images/C.xpm"
+# define EXIT_IMG "images/E.xpm"
 
 # include "mlx/mlx.h"
 # include <stdio.h>
@@ -43,81 +45,63 @@ typedef struct s_img {
 	void	*img;
 	int		w;
 	int		h;
-}	t_img;
-
-typedef struct s_walls {
-	void	*img;
 	int		i;
 	int		j;
-	int		w;
-	int		h;
-}	t_walls;
-
-typedef struct s_player {
-	void	*img;
-	int		w;
-	int		h;
 	int		posx;
 	int		posy;
-}	t_player;
+}	t_img;
 
 typedef struct s_mlx {
 	t_img		**floor;
-	t_img		**collects;	
-	t_walls		**walls;
+	t_img		**collect;	
+	t_img		**walls;
 	t_img		*exit;
-	t_player	*player;
+	t_img		*player;
 	char		**map;
 	void		*mlx_ptr;
 	void		*win_ptr;
 	int			win_size_w;
 	int			win_size_h;
+	int			collect_count;
 }	t_mlx;
 
-void		mlx_init_stuff(char **map, char *filename);
-
-int			is_allowed(char **map, char *allowed);
-
-int			at_least_one(char **s);
-
-int			check_file_extension(char *s);
-
-int			map_check(char **map);
-
-char		**parse_map(char *filename);
-
-void		perror_exit_cond(char *errmsg, int cond);
-
-void		free_stuff_and_exit(char **arr, char *s, char *errmsg);
-
-void		free_stuff_and_exit_cond(char **arr, char *s, char *errmsg, int cond);
-
-void		free_ptr_arr(char **arr);
-
-void		draw_floor(t_mlx *mlx, char **map);
-
-void		draw_walls(t_mlx *mlx, char **map);
-
-t_img		**allocate_floor(void *mlx_ptr, char **map);
-
-t_walls		**allocate_walls(void *mlx_ptr, char **map);
-
-t_pos		get_player_position(char **map);
-
-
-t_player	*allocate_player(void *mlx_ptr);
-
-//HOOKS
+int		is_allowed(char **map, char *allowed);
+int		at_least_one(char **s);
+int		check_file_extension(char *s);
+int		map_check(char **map);
+int		get_count(char **map, char c);
+int		get_count_reverse(char **map, char c);
+int		first_where(t_img **floor, int i, int j);
 int		key_hook(int keycode, t_mlx *mlx);
-int		mouse_hook(int button, int x, int y, void *param);
-int		hook(void *param);
-//HOOKS
+int		hook(t_mlx *mlx);
 
-//MOVE PLAYER
+char	**parse_map(char *filename);
+
+void	mlx_init_stuff(char *filename);
+void	perror_exit_cond(char *errmsg, int cond);
+void	free_stuff_and_exit(char **arr, char *s, char *errmsg);
+void	do_things(t_mlx *mlx);
+void	redraw_exit(t_mlx *mlx);
+void	draw_floor(t_mlx *mlx, char **map);
+void	draw_single_floor(t_mlx *mlx);
+void	draw_exit(t_mlx *mlx);
+void	draw_walls(t_mlx *mlx, char **map);
+void	draw_collect(t_mlx *mlx, char **map);
 void	move_up(t_mlx *mlx);
 void	move_down(t_mlx *mlx);
 void	move_left(t_mlx *mlx);
 void	move_right(t_mlx *mlx);
-//MOVE PLAYER
+void	destroy_and_leave(t_mlx *mlx);
+void	free_stuff_and_exit_cond(char **arr, char *s,
+			char *errmsg, int cond);
+
+t_pos	get_player_position(char **map);
+t_pos	get_exit_position(char **map);
+
+t_img	*allocate_player(t_mlx *mlx);
+t_img	*allocate_exit(t_mlx *mlx);
+t_img	**allocate_floor(t_mlx *mlx);
+t_img	**allocate_walls(t_mlx *mlx);
+t_img	**allocate_collect(t_mlx *mlx);
 
 #endif

@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   get_next_line_utils.c                              :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dghonyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/04/10 16:53:56 by dghonyan          #+#    #+#             */
+/*   Updated: 2022/04/10 16:54:11 by dghonyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "libft.h"
 #include <stdlib.h>
 #include <unistd.h>
@@ -32,16 +44,6 @@ static char	*ft_strjoin_for_read(char *s, char c)
 	return (res);
 }
 
-static void	free_ptr_arr(char **arr)
-{
-	while (*arr)
-	{
-		free(*arr);
-		arr++;
-	}
-	free(arr);
-}
-
 static void	free_stuff_and_exit(char **arr, char *s, char *errmsg)
 {
 	if (errmsg)
@@ -51,7 +53,6 @@ static void	free_stuff_and_exit(char **arr, char *s, char *errmsg)
 	free(s);
 	exit (EXIT_FAILURE);
 }
-
 
 char	*get_next_line_new(int fd)
 {

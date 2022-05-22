@@ -12,88 +12,26 @@
 
 #include "so_long.h"
 
-t_img	**allocate_floor(void *mlx_ptr, char **map)
-{
-	int		i;
-	int		j;
-	int		k;
-	t_img	**floor;
-
-	i = 0;
-	k = 0;
-	floor = malloc(sizeof (*floor) * (ft_strlen(map[0]) * ptr_arr_len(map) + 1));
-	if (!floor)
-		ft_printf(RED "OH NO" COLOR_RESET);
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j++])
-		{
-			floor[k] = malloc(sizeof (**floor));
-			if (!floor[k])
-				ft_printf(MAGENTA "OH NO AGAIN" COLOR_RESET);
-			floor[k]->img = mlx_xpm_file_to_image(mlx_ptr, FLOOR_IMG, &(floor[k]->w), &(floor[k]->h));
-			k++;
-		}
-		i++;
-	}
-	floor[k] = NULL;
-	return (floor);
-}
-
-t_walls	**allocate_walls(void *mlx_ptr, char **map)
-{
-	int		i;
-	int		j;
-	int		k;
-	t_walls	**walls;
-
-	i = 0;
-	k = 0;
-	walls = malloc(sizeof (*walls) * (ft_strlen(map[0]) * ptr_arr_len(map) + 1));
-	if (!walls)
-		ft_printf(RED "OH NO" COLOR_RESET);
-	while (map[i])
-	{
-		j = 0;
-		while (map[i][j])
-		{
-			if (map[i][j] == '1')
-			{
-				walls[k] = malloc(sizeof (**walls));
-				if (!walls[k])
-					ft_printf(MAGENTA "OH NO AGAIN WALLS" COLOR_RESET);
-				walls[k]->i = i;
-				walls[k]->j = j;
-				walls[k]->img = mlx_xpm_file_to_image(mlx_ptr, WALL_IMG, &(walls[k]->w), &(walls[k]->h));
-				if (!walls[k]->img)
-					ft_printf(YELLOW "OH NO AGAIN WALLS IMG" COLOR_RESET);
-				k++;
-			}
-			j++;
-		}
-		i++;
-	}
-	walls[k] = NULL;
-	return (walls);
-}
-
 void	draw_floor(t_mlx *mlx, char **map)
 {
 	int	i;
 	int	j;
 	int	k;
 
-	i = 0;
+	i = 1;
 	k = 0;
-	while (map[i])
+	while (map[i + 1])
 	{
-		j = 0;
-		while (map[i][j])
+		j = 1;
+		while (map[i][j + 1])
 		{
-			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->floor[k]->img,
-				j * (mlx->floor[k])->w, i * (mlx->floor[k])->h);
-			k++;
+			if (map[i][j] != '1')
+			{
+				mlx_put_image_to_window(mlx->mlx_ptr,
+					mlx->win_ptr, mlx->floor[k]->img,
+					j * (mlx->floor[k])->w, i * (mlx->floor[k])->h);
+				k++;
+			}
 			j++;
 		}
 		i++;
@@ -116,7 +54,8 @@ void	draw_walls(t_mlx *mlx, char **map)
 			if (map[i][j] == '1')
 			{
 				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
-					mlx->walls[k]->img, j * mlx->walls[k]->w, i * mlx->walls[k]->h);
+					mlx->walls[k]->img,
+					j * mlx->walls[k]->w, i * mlx->walls[k]->h);
 				k++;
 			}
 			j++;
@@ -125,42 +64,34 @@ void	draw_walls(t_mlx *mlx, char **map)
 	}
 }
 
-t_pos	get_player_position(char **map)
+void	draw_collect(t_mlx *mlx, char **map)
 {
 	int		i;
 	int		j;
-	t_pos	pos;
+	int		k;
 
-	i = 0;
-	pos.x = 0;
-	pos.y = 0;
-	while (map[i])
+	k = 0;
+	i = 1;
+	while (map[i + 1])
 	{
-		j = 0;
-		while (map[i][j])
+		j = 1;
+		while (map[i][j + 1])
 		{
-			if (map[i][j] == 'P')
+			if (map[i][j] == 'C')
 			{
-				pos.x = j;
-				pos.y = i;
-				return (pos);
+				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+					mlx->collect[k]->img,
+					mlx->collect[k]->posx, mlx->collect[k]->posy);
+				k++;
 			}
 			j++;
 		}
 		i++;
 	}
-	return (pos);
 }
 
-t_player	*allocate_player(void *mlx_ptr)
+void	draw_exit(t_mlx *mlx)
 {
-	t_player	*player;
-
-	player = malloc(sizeof (*player));
-	if (!player)
-		ft_printf(RED "PLAYER IS DEAD");
-	player->img = mlx_xpm_file_to_image(mlx_ptr, PLAYER_IMG, &((player)->w), &((player)->h));
-	if (!player->img)
-		ft_printf(MAGENTA "mlxfailed at player");
-	return (player);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->exit->img,
+		mlx->exit->posx, mlx->exit->posy);
 }

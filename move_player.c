@@ -12,43 +12,127 @@
 
 #include "so_long.h"
 
+int	first_where(t_img **floor, int i, int j)
+{
+	int	a;
+
+	a = 0;
+	while (floor[a])
+	{
+		if (floor[a]->i == i && floor[a]->j == j)
+			return (a);
+		a++;
+	}
+	return (-1);
+}
+
 void	move_up(t_mlx *mlx)
 {
-	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img);
-	
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->floor[0]->img, mlx->player->posx, mlx->player->posy);
-	mlx->player->posy -= mlx->player->h;
-	mlx->player->img = mlx_xpm_file_to_image(mlx->mlx_ptr, PLAYER_IMG, &((mlx->player)->w), &((mlx->player)->h));
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+	if (mlx->map[mlx->player->i - 1][mlx->player->j] == 'C')
+	{
+		draw_single_floor(mlx);
+		redraw_exit(mlx);
+		mlx->player->posy -= mlx->floor[0]->h;
+		mlx->player->i -= 1;
+		draw_single_floor(mlx);
+		mlx->map[mlx->player->i][mlx->player->j] = '0';
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+			mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+		mlx->collect_count--;
+	}
+	else
+	{
+		draw_single_floor(mlx);
+		redraw_exit(mlx);
+		mlx->player->posy -= mlx->floor[0]->h;
+		mlx->player->i -= 1;
+		if (mlx->map[mlx->player->i][mlx->player->j] == 'E'
+			&& !get_count(mlx->map, 'C'))
+			hook(mlx);
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+			mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+	}
 }
 
 void	move_down(t_mlx *mlx)
 {
-	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img);
-	
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->floor[0]->img, mlx->player->posx, mlx->player->posy);
-	mlx->player->posy += mlx->player->h;
-	mlx->player->img = mlx_xpm_file_to_image(mlx->mlx_ptr, PLAYER_IMG, &((mlx->player)->w), &((mlx->player)->h));
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
-	
+	if (mlx->map[mlx->player->i + 1][mlx->player->j] == 'C')
+	{
+		draw_single_floor(mlx);
+		redraw_exit(mlx);
+		mlx->player->posy += mlx->floor[0]->h;
+		mlx->player->i += 1;
+		draw_single_floor(mlx);
+		mlx->map[mlx->player->i][mlx->player->j] = '0';
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+			mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+		mlx->collect_count--;
+	}
+	else
+	{
+		draw_single_floor(mlx);
+		redraw_exit(mlx);
+		mlx->player->posy += mlx->floor[0]->h;
+		mlx->player->i += 1;
+		if (mlx->map[mlx->player->i][mlx->player->j] == 'E'
+			&& !get_count(mlx->map, 'C'))
+			hook(mlx);
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+			mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+	}
 }
 
 void	move_left(t_mlx *mlx)
 {
-	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img);
-	
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->floor[0]->img, mlx->player->posx, mlx->player->posy);
-	mlx->player->posx -= mlx->player->w;
-	mlx->player->img = mlx_xpm_file_to_image(mlx->mlx_ptr, PLAYER_IMG, &((mlx->player)->w), &((mlx->player)->h));
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+	if (mlx->map[mlx->player->i][mlx->player->j - 1] == 'C')
+	{
+		draw_single_floor(mlx);
+		redraw_exit(mlx);
+		mlx->player->posx -= mlx->floor[0]->w;
+		mlx->player->j -= 1;
+		draw_single_floor(mlx);
+		mlx->map[mlx->player->i][mlx->player->j] = '0';
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+			mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+		mlx->collect_count--;
+	}
+	else
+	{
+		draw_single_floor(mlx);
+		redraw_exit(mlx);
+		mlx->player->posx -= mlx->floor[0]->w;
+		mlx->player->j -= 1;
+		if (mlx->map[mlx->player->i][mlx->player->j] == 'E'
+			&& !get_count(mlx->map, 'C'))
+			hook(mlx);
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+			mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+	}
 }
 
 void	move_right(t_mlx *mlx)
 {
-	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img);
-	
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->floor[0]->img, mlx->player->posx, mlx->player->posy);
-	mlx->player->posx += mlx->player->w;
-	mlx->player->img = mlx_xpm_file_to_image(mlx->mlx_ptr, PLAYER_IMG, &((mlx->player)->w), &((mlx->player)->h));
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+	if (mlx->map[mlx->player->i][mlx->player->j + 1] == 'C')
+	{
+		draw_single_floor(mlx);
+		redraw_exit(mlx);
+		mlx->player->posx += mlx->floor[0]->w;
+		mlx->player->j += 1;
+		draw_single_floor(mlx);
+		mlx->map[mlx->player->i][mlx->player->j] = '0';
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+			mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+	}
+	else
+	{
+		draw_single_floor(mlx);
+		redraw_exit(mlx);
+		mlx->player->posx += mlx->floor[0]->w;
+		mlx->player->j += 1;
+		if (mlx->map[mlx->player->i][mlx->player->j] == 'E'
+			&& !get_count(mlx->map, 'C'))
+			hook(mlx);
+		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+			mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
+	}
 }
