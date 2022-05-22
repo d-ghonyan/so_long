@@ -12,6 +12,19 @@
 
 #include "so_long.h"
 
+static void	helper(t_mlx *mlx, int i, int j)
+{
+	mlx->collect->posx = (j * mlx->floor[0]->w)
+		+ ((mlx->floor[0]->w / 2))
+		- (mlx->collect->w / 2);
+	mlx->collect->posy = (i * mlx->floor[0]->h)
+		+ ((mlx->floor[0]->h / 2))
+		- (mlx->collect->h / 2);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+		mlx->collect->img,
+		mlx->collect->posx, mlx->collect->posy);
+}
+
 void	draw_floor(t_mlx *mlx, char **map)
 {
 	int	i;
@@ -54,8 +67,8 @@ void	draw_walls(t_mlx *mlx, char **map)
 			if (map[i][j] == '1')
 			{
 				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
-					mlx->walls[k]->img,
-					j * mlx->walls[k]->w, i * mlx->walls[k]->h);
+					mlx->walls->img,
+					j * mlx->walls->w, i * mlx->walls->h);
 				k++;
 			}
 			j++;
@@ -79,9 +92,7 @@ void	draw_collect(t_mlx *mlx, char **map)
 		{
 			if (map[i][j] == 'C')
 			{
-				mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
-					mlx->collect[k]->img,
-					mlx->collect[k]->posx, mlx->collect[k]->posy);
+				helper(mlx, i, j);
 				k++;
 			}
 			j++;

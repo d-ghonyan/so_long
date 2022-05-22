@@ -48,7 +48,7 @@ int	key_hook(int keycode, t_mlx *mlx)
 		hook(mlx);
 	s = ft_itoa(count);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
-		mlx->walls[0]->img, 0, 0);
+		mlx->walls->img, 0, 0);
 	mlx_string_put(mlx->mlx_ptr, mlx->win_ptr, 0, 0, 0xffffff, s);
 	free(s);
 	call_move(keycode, mlx);

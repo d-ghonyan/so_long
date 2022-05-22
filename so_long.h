@@ -53,8 +53,8 @@ typedef struct s_img {
 
 typedef struct s_mlx {
 	t_img		**floor;
-	t_img		**collect;	
-	t_img		**walls;
+	t_img		*collect;	
+	t_img		*walls;
 	t_img		*exit;
 	t_img		*player;
 	char		**map;
@@ -100,8 +100,8 @@ t_pos	get_exit_position(char **map);
 
 t_img	*allocate_player(t_mlx *mlx);
 t_img	*allocate_exit(t_mlx *mlx);
+t_img	*allocate_walls(t_mlx *mlx);
+t_img	*allocate_collect(t_mlx *mlx);
 t_img	**allocate_floor(t_mlx *mlx);
-t_img	**allocate_walls(t_mlx *mlx);
-t_img	**allocate_collect(t_mlx *mlx);
 
 #endif
