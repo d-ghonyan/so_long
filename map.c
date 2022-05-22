@@ -47,8 +47,9 @@ char	**parse_map(char *filename)
 
 	count = line_count(filename);
 	line_arr = malloc(sizeof (*line_arr) * (count + 1));
-	perror_exit_cond("Can't allocate memory at parse_map", !line_arr);
+	perror_exit_cond("Can't allocate memory to parse map", !line_arr);
 	map = open(filename, O_RDONLY);
+	free_exit_cond(line_arr, NULL, "Can't close file ??? tf", map < 0);
 	line_arr[0] = NULL;
 	if (map < 0)
 		free_stuff_and_exit(line_arr, NULL, "Can't open the map");
@@ -60,8 +61,7 @@ char	**parse_map(char *filename)
 			break ;
 		i++;
 	}
-	if (close(map) < 0)
-		free_stuff_and_exit(line_arr, NULL, "Can't close file ??? tf");
+	free_exit_cond(line_arr, NULL, "Can't close file ??? tf", close(map) < 0);
 	if (i == 0 || i < count)
 		free_stuff_and_exit(line_arr, NULL, "get_next_line failed");
 	return (line_arr);

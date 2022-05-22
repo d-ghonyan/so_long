@@ -52,7 +52,7 @@ typedef struct s_img {
 }	t_img;
 
 typedef struct s_mlx {
-	t_img		**floor;
+	t_img		*floor;
 	t_img		*collect;	
 	t_img		*walls;
 	t_img		*exit;
@@ -92,8 +92,7 @@ void	move_down(t_mlx *mlx);
 void	move_left(t_mlx *mlx);
 void	move_right(t_mlx *mlx);
 void	destroy_and_leave(t_mlx *mlx);
-void	free_stuff_and_exit_cond(char **arr, char *s,
-			char *errmsg, int cond);
+void	free_exit_cond(char **arr, char *s, char *errmsg, int cond);
 
 t_pos	get_player_position(char **map);
 t_pos	get_exit_position(char **map);
@@ -102,6 +101,6 @@ t_img	*allocate_player(t_mlx *mlx);
 t_img	*allocate_exit(t_mlx *mlx);
 t_img	*allocate_walls(t_mlx *mlx);
 t_img	*allocate_collect(t_mlx *mlx);
-t_img	**allocate_floor(t_mlx *mlx);
+t_img	*allocate_floor(t_mlx *mlx);
 
 #endif

@@ -14,11 +14,11 @@
 
 static void	helper(t_mlx *mlx, int i, int j)
 {
-	mlx->collect->posx = (j * mlx->floor[0]->w)
-		+ ((mlx->floor[0]->w / 2))
+	mlx->collect->posx = (j * mlx->floor->w)
+		+ ((mlx->floor->w / 2))
 		- (mlx->collect->w / 2);
-	mlx->collect->posy = (i * mlx->floor[0]->h)
-		+ ((mlx->floor[0]->h / 2))
+	mlx->collect->posy = (i * mlx->floor->h)
+		+ ((mlx->floor->h / 2))
 		- (mlx->collect->h / 2);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 		mlx->collect->img,
@@ -41,8 +41,8 @@ void	draw_floor(t_mlx *mlx, char **map)
 			if (map[i][j] != '1')
 			{
 				mlx_put_image_to_window(mlx->mlx_ptr,
-					mlx->win_ptr, mlx->floor[k]->img,
-					j * (mlx->floor[k])->w, i * (mlx->floor[k])->h);
+					mlx->win_ptr, mlx->floor->img,
+					j * (mlx->floor)->w, i * (mlx->floor)->h);
 				k++;
 			}
 			j++;

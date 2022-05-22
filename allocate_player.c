@@ -12,6 +12,15 @@
 
 #include "so_long.h"
 
+void	printf_exit_cond(char *s, int cond)
+{
+	if (cond)
+	{
+		ft_printf(RED "%s\n" COLOR_RESET, s);
+		exit (EXIT_FAILURE);
+	}
+}
+
 t_img	*allocate_player(t_mlx *mlx)
 {
 	int		x;
@@ -19,20 +28,23 @@ t_img	*allocate_player(t_mlx *mlx)
 	t_img	*player;
 
 	player = malloc(sizeof (*player));
-	if (!player)
-		ft_printf(RED "PLAYER IS DEAD");
+	printf_exit_cond("Can't allocate player", !player);
 	player->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			PLAYER_IMG, &(player->w), &(player->h));
 	if (!player->img)
-		ft_printf(MAGENTA "mlx failed at player");
+	{
+		free(player);
+		ft_printf(MAGENTA "mlx failed at player" COLOR_RESET);
+		exit(EXIT_FAILURE);
+	}
 	x = get_player_position(mlx->map).x;
 	y = get_player_position(mlx->map).y;
 	player->i = x;
 	player->j = y;
-	player->posx = (x * mlx->floor[0]->w)
-		+ ((mlx->floor[0]->w / 2)) - (player->w / 2);
-	player->posy = (y * mlx->floor[0]->h)
-		+ ((mlx->floor[0]->h / 2)) - (player->h / 2);
+	player->posx = (x * mlx->floor->w)
+		+ ((mlx->floor->w / 2)) - (player->w / 2);
+	player->posy = (y * mlx->floor->h)
+		+ ((mlx->floor->h / 2)) - (player->h / 2);
 	return (player);
 }
 

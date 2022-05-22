@@ -12,33 +12,19 @@
 
 #include "so_long.h"
 
-static void	destroy_floor(t_mlx *mlx)
-{
-	int	i;
-
-	i = 0;
-	while (mlx->floor[i])
-	{
-		mlx_destroy_image(mlx->mlx_ptr, mlx->floor[i]->img);
-		free(mlx->floor[i]);
-		i++;
-	}
-	free(mlx->floor);
-	exit (EXIT_SUCCESS);
-}
-
 void	destroy_and_leave(t_mlx *mlx)
 {
 	mlx_destroy_image(mlx->mlx_ptr, mlx->exit->img);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->walls->img);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->collect->img);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->floor->img);
 	free(mlx->exit);
-	free(mlx->player);
 	free(mlx->walls);
+	free(mlx->floor);
+	free(mlx->player);
 	free(mlx->collect);
 	free_ptr_arr(mlx->map);
-	destroy_floor(mlx);
 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
 	exit(EXIT_SUCCESS);
 }

@@ -38,10 +38,11 @@ void	mlx_init_stuff(char *filename)
 	mlx.collect = allocate_collect(&mlx);
 	mlx.player = allocate_player(&mlx);
 	mlx.exit = allocate_exit(&mlx);
-	mlx.win_size_w = mlx.floor[0]->w * ft_strlen(mlx.map[0]);
-	mlx.win_size_h = mlx.floor[0]->h * ptr_arr_len(mlx.map);
+	mlx.win_size_w = mlx.floor->w * ft_strlen(mlx.map[0]);
+	mlx.win_size_h = mlx.floor->h * ptr_arr_len(mlx.map);
+	ft_printf("%d %d\n", mlx.win_size_w, mlx.win_size_h);
 	mlx.win_ptr = mlx_new_window(mlx.mlx_ptr,
-			mlx.win_size_w, mlx.win_size_h, "Hello");
+			mlx.win_size_w, mlx.win_size_h, "Hewwo");
 	draw_floor(&mlx, mlx.map);
 	draw_walls(&mlx, mlx.map);
 	draw_collect(&mlx, mlx.map);

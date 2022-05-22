@@ -31,7 +31,7 @@ void	free_stuff_and_exit(char **arr, char *s, char *errmsg)
 	exit (EXIT_FAILURE);
 }
 
-void	free_stuff_and_exit_cond(char **arr, char *s, char *errmsg, int cond)
+void	free_exit_cond(char **arr, char *s, char *errmsg, int cond)
 {
 	if (cond)
 	{

@@ -29,10 +29,10 @@ t_img	*allocate_exit(t_mlx *mlx)
 	y = get_exit_position(mlx->map).y;
 	exit->i = x;
 	exit->j = y;
-	exit->posx = (x * mlx->floor[0]->w)
-		+ ((mlx->floor[0]->w / 2)) - (exit->w / 2);
-	exit->posy = (y * mlx->floor[0]->h)
-		+ ((mlx->floor[0]->h / 2)) - (exit->h / 2);
+	exit->posx = (x * mlx->floor->w)
+		+ ((mlx->floor->w / 2)) - (exit->w / 2);
+	exit->posy = (y * mlx->floor->h)
+		+ ((mlx->floor->h / 2)) - (exit->h / 2);
 	return (exit);
 }
 

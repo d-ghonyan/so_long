@@ -14,11 +14,10 @@
 
 void	draw_single_floor(t_mlx *mlx)
 {
-	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr, mlx->floor[0]->img,
-		mlx->floor[first_where(mlx->floor, mlx->player->i,
-			mlx->player->j)]->posx,
-		mlx->floor[first_where(mlx->floor, mlx->player->i,
-			mlx->player->j)]->posy);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+		mlx->floor->img,
+		mlx->player->j * mlx->floor->w,
+		mlx->player->i * mlx->floor->h);
 }
 
 void	redraw_exit(t_mlx *mlx)
