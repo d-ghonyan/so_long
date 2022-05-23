@@ -20,6 +20,35 @@
 # define COLLECT_IMG "images/C.xpm"
 # define EXIT_IMG "images/E.xpm"
 
+# define ESC 65307
+
+//MAC
+// # define ESC 53
+
+//LINUX
+# define UP 119
+# define DOWN 115
+# define LEFT 97
+# define RIGHT 100
+
+//MAC
+// # define UP 13
+// # define DOWN 1
+// # define LEFT 0
+// # define RIGHT 2
+
+//LINUX
+# define UP_A 65362
+# define DOWN_A 65364
+# define LEFT_A 65361
+# define RIGHT_A 65363
+
+//MAC
+// # define UP_A 126
+// # define DOWN_A 125
+// # define LEFT_A 123
+// # define RIGHT_A 124
+
 # include "mlx/mlx.h"
 # include <stdio.h>
 # include <fcntl.h>

@@ -67,7 +67,7 @@ int	map_check(char **map)
 	int	len;
 
 	i = 0;
-	if (!map_len_check(map) || !map_chars_check(map))
+	if (!map_chars_check(map) || !map_len_check(map))
 		return (0);
 	len = ptr_arr_len(map);
 	while (map[i])

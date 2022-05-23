@@ -31,12 +31,12 @@ void	draw_floor(t_mlx *mlx, char **map)
 	int	j;
 	int	k;
 
-	i = 1;
+	i = 0;
 	k = 0;
-	while (map[i + 1])
+	while (map[i])
 	{
-		j = 1;
-		while (map[i][j + 1])
+		j = 0;
+		while (map[i][j])
 		{
 			if (map[i][j] != '1')
 			{
@@ -84,11 +84,11 @@ void	draw_collect(t_mlx *mlx, char **map)
 	int		k;
 
 	k = 0;
-	i = 1;
-	while (map[i + 1])
+	i = 0;
+	while (map[i])
 	{
-		j = 1;
-		while (map[i][j + 1])
+		j = 0;
+		while (map[i][j])
 		{
 			if (map[i][j] == 'C')
 			{

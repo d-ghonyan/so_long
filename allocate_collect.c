@@ -12,6 +12,18 @@
 
 #include "so_long.h"
 
+static void	free_exit(t_mlx *mlx, t_img *collect, char *errmsg)
+{
+	perror(errmsg);
+	free_ptr_arr(mlx->map);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->walls->img);
+	free(mlx->walls);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->floor->img);
+	free(mlx->floor);
+	free(collect);
+	exit (EXIT_FAILURE);
+}
+
 t_img	*allocate_collect(t_mlx *mlx)
 {
 	int		x;
@@ -20,10 +32,10 @@ t_img	*allocate_collect(t_mlx *mlx)
 
 	collect = malloc(sizeof (*collect));
 	if (!collect)
-		ft_printf(RED "COLLECT IS DEAD");
+		free_exit(mlx, NULL, "Can't allocate collect");
 	collect->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			COLLECT_IMG, &(collect->w), &(collect->h));
 	if (!collect->img)
-		ft_printf(MAGENTA "mlx failed at collect");
+		free_exit(mlx, collect, "Can't allocate collect img");
 	return (collect);
 }

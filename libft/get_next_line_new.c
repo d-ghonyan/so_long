@@ -54,6 +54,7 @@ static void	free_stuff_and_exit(char **arr, char *s, char *errmsg)
 	exit (EXIT_FAILURE);
 }
 
+///TODO change later to return newline too
 char	*get_next_line_new(int fd)
 {
 	char	*s;
@@ -66,9 +67,7 @@ char	*get_next_line_new(int fd)
 		a = read(fd, &c, 1);
 		if (a == -1)
 			free_stuff_and_exit(NULL, s, "read() failed at gnl_new()");
-		if (a == 0)
-			return (s);
-		if (c == '\n')
+		if (a == 0 || c == '\n')
 			return (s);
 		s = ft_strjoin_for_read(s, c);
 		perror_exit_cond("strjoin() failed at gnl_new()", !s);

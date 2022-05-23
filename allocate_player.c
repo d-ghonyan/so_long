@@ -12,13 +12,18 @@
 
 #include "so_long.h"
 
-void	printf_exit_cond(char *s, int cond)
+static void	free_exit(t_mlx *mlx, t_img *player, char *errmsg)
 {
-	if (cond)
-	{
-		ft_printf(RED "%s\n" COLOR_RESET, s);
-		exit (EXIT_FAILURE);
-	}
+	perror(errmsg);
+	free_ptr_arr(mlx->map);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->walls->img);
+	free(mlx->walls);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->floor->img);
+	free(mlx->floor);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->collect->img);
+	free(mlx->collect);
+	free(player);
+	exit (EXIT_FAILURE);
 }
 
 t_img	*allocate_player(t_mlx *mlx)
@@ -28,19 +33,16 @@ t_img	*allocate_player(t_mlx *mlx)
 	t_img	*player;
 
 	player = malloc(sizeof (*player));
-	printf_exit_cond("Can't allocate player", !player);
+	if (!player)
+		free_exit(mlx, NULL, "Can't allocate player");
 	player->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			PLAYER_IMG, &(player->w), &(player->h));
 	if (!player->img)
-	{
-		free(player);
-		ft_printf(MAGENTA "mlx failed at player" COLOR_RESET);
-		exit(EXIT_FAILURE);
-	}
+		free_exit(mlx, player, "Can't allocate player img");
 	x = get_player_position(mlx->map).x;
 	y = get_player_position(mlx->map).y;
-	player->i = x;
-	player->j = y;
+	player->j = x;
+	player->i = y;
 	player->posx = (x * mlx->floor->w)
 		+ ((mlx->floor->w / 2)) - (player->w / 2);
 	player->posy = (y * mlx->floor->h)

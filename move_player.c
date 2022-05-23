@@ -24,7 +24,6 @@ void	move_up(t_mlx *mlx)
 		mlx->map[mlx->player->i][mlx->player->j] = '0';
 		mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 			mlx->player->img, (mlx->player)->posx, (mlx->player)->posy);
-			//return (1);
 	}
 	else
 	{

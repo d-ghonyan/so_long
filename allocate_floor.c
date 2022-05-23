@@ -12,6 +12,16 @@
 
 #include "so_long.h"
 
+static void	free_exit(t_mlx *mlx, t_img *floor, char *errmsg)
+{
+	perror(errmsg);
+	free_ptr_arr(mlx->map);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->walls->img);
+	free(mlx->walls);
+	free(floor);
+	exit (EXIT_FAILURE);
+}
+
 t_img	*allocate_floor(t_mlx *mlx)
 {
 	int		x;
@@ -20,10 +30,10 @@ t_img	*allocate_floor(t_mlx *mlx)
 
 	floor = malloc(sizeof (*floor));
 	if (!floor)
-		ft_printf(RED "FLOOR IS DEAD");
+		free_exit(mlx, NULL, "Can't allocate floor");
 	floor->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			FLOOR_IMG, &(floor->w), &(floor->h));
 	if (!floor->img)
-		ft_printf(MAGENTA "mlx failed at floor");
+		free_exit(mlx, floor, "Can't allocate floor img");
 	return (floor);
 }

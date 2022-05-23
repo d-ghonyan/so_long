@@ -12,6 +12,22 @@
 
 #include "so_long.h"
 
+static void	free_exit(t_mlx *mlx, t_img *_exit, char *errmsg)
+{
+	perror(errmsg);
+	free_ptr_arr(mlx->map);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->walls->img);
+	free(mlx->walls);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->floor->img);
+	free(mlx->floor);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->collect->img);
+	free(mlx->collect);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img);
+	free(mlx->player);
+	free(_exit);
+	exit (EXIT_FAILURE);
+}
+
 t_img	*allocate_exit(t_mlx *mlx)
 {
 	int		x;
@@ -20,11 +36,11 @@ t_img	*allocate_exit(t_mlx *mlx)
 
 	exit = malloc(sizeof (*exit));
 	if (!exit)
-		ft_printf(RED "EXIT IS DEAD");
+		free_exit(mlx, NULL, "Can't allocate exit");
 	exit->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			EXIT_IMG, &(exit->w), &(exit->h));
 	if (!exit->img)
-		ft_printf(MAGENTA "mlx failed at exit");
+		free_exit(mlx, exit, "Can't allocate exit img");
 	x = get_exit_position(mlx->map).x;
 	y = get_exit_position(mlx->map).y;
 	exit->i = x;

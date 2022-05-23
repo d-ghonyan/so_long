@@ -18,6 +18,7 @@
 static void	move_and_incr(int *count, t_mlx *mlx, void (*f)(t_mlx *))
 {
 	char	*s;
+
 	f(mlx);
 	s = ft_itoa(*count);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
@@ -29,16 +30,16 @@ static void	move_and_incr(int *count, t_mlx *mlx, void (*f)(t_mlx *))
 
 static void	call_move(int keycode, t_mlx *mlx, int *count)
 {
-	if ((keycode == 13 || keycode == 126)
+	if ((keycode == UP || keycode == UP_A)
 		&& mlx->map[mlx->player->i - 1][mlx->player->j] != '1')
 		move_and_incr(count, mlx, &move_up);
-	else if ((keycode == 1 || keycode == 125)
+	else if ((keycode == DOWN || keycode == DOWN_A)
 		&& mlx->map[mlx->player->i + 1][mlx->player->j] != '1')
 		move_and_incr(count, mlx, &move_down);
-	else if ((keycode == 0 || keycode == 123)
+	else if ((keycode == LEFT || keycode == LEFT_A)
 		&& mlx->map[mlx->player->i][mlx->player->j - 1] != '1')
 		move_and_incr(count, mlx, &move_left);
-	else if ((keycode == 2 || keycode == 124)
+	else if ((keycode == RIGHT || keycode == RIGHT_A)
 		&& mlx->map[mlx->player->i][mlx->player->j + 1] != '1')
 		move_and_incr(count, mlx, &move_right);
 }
@@ -46,8 +47,7 @@ static void	call_move(int keycode, t_mlx *mlx, int *count)
 int	key_hook(int keycode, t_mlx *mlx)
 {
 	static int	count = 1;
-
-	if (keycode == 53)
+	if (keycode == ESC)
 		hook(mlx);
 	call_move(keycode, mlx, &count);
 	return (0);
