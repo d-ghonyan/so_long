@@ -47,6 +47,7 @@ static void	call_move(int keycode, t_mlx *mlx, int *count)
 int	key_hook(int keycode, t_mlx *mlx)
 {
 	static int	count = 1;
+
 	if (keycode == ESC)
 		hook(mlx);
 	call_move(keycode, mlx, &count);
