@@ -12,19 +12,6 @@
 
 #include "so_long.h"
 
-static void	ft_strcpy(char *s1, const char *s2)
-{
-	int	j;
-
-	j = 0;
-	while (s2[j])
-	{
-		s1[j] = s2[j];
-		j++;
-	}
-	s1[j] = '\0';
-}
-
 static void	init(t_mlx *mlx)
 {
 	mlx->collect_count = get_count(mlx->map, 'C');

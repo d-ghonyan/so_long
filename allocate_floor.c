@@ -24,8 +24,6 @@ static void	free_exit(t_mlx *mlx, t_img *floor, char *errmsg)
 
 t_img	*allocate_floor(t_mlx *mlx)
 {
-	int		x;
-	int		y;
 	t_img	*floor;
 
 	floor = malloc(sizeof (*floor));

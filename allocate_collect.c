@@ -26,8 +26,6 @@ static void	free_exit(t_mlx *mlx, t_img *collect, char *errmsg)
 
 t_img	*allocate_collect(t_mlx *mlx)
 {
-	int		x;
-	int		y;
 	t_img	*collect;
 
 	collect = malloc(sizeof (*collect));

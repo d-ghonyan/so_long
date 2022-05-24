@@ -17,8 +17,6 @@
 
 void	check_args(int argc, char *filename)
 {
-	char	*dot;
-
 	if (argc < 2)
 	{
 		ft_printf(RED "Not enough arguments\n" COLOR_RESET);

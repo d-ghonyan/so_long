@@ -22,8 +22,6 @@ static void	free_and_exit(t_mlx *mlx, t_img *walls, char *errmsg)
 
 t_img	*allocate_walls(t_mlx *mlx)
 {
-	int		x;
-	int		y;
 	t_img	*walls;
 
 	walls = malloc(sizeof (*walls));

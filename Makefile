@@ -1,6 +1,6 @@
 NAME = so_long
 CC = cc
-CFLAGS = -c #-Wall -Wextra #TODO add flags
+CFLAGS = -c -Wall -Wextra -Werror#TODO add flags
 # MLX = -lmlx -L /usr/local/include -framework AppKit -framework OpenGL
 MLX = -I/usr/include -Imlx_linux -O3
 MLX_LINUX = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
@@ -38,36 +38,3 @@ fclean: clean
 re: fclean all
 
 .PHONY: all clean fclean re lib ftprintf
-
-# WINDOWS
-#NAME = so_long
-#CC = gcc
-#CFLAGS = -Wall -Wextra -c #TODO add flags
-#LIBFT = -lft -L libft
-#FT_PRINTF = -lftprintf -L ft_printf
-#SRCS = $(wildcard *.c)
-#OBJS = $(SRCS:.c=.o)
-#
-#%.c:
-#	$(CC) $(CFLAGS) $(SRCS)
-#
-#all: lib ftprintf $(NAME)
-#
-#$(NAME): $(OBJS)
-#	$(CC) $(OBJS) $(LIBFT) $(FT_PRINTF) -o $(NAME)
-#
-#ftprintf:
-#	cd ft_printf && make
-#
-#lib:
-#	cd libft && make 
-#
-#clean:
-#	del .\*.o libft\*.o ft_printf\*.o
-#
-#fclean: clean
-#	del $(NAME) libft\libft.a ft_printf\libftprintf.a
-#
-#re: fclean all
-#
-#.PHONY: all clean fclean re lib ftprintf
