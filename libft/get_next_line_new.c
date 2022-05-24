@@ -60,15 +60,23 @@ char	*get_next_line_new(int fd)
 	char	*s;
 	char	c;
 	int		a;
+	int		not_a_newline;
 
+	not_a_newline = 0;
 	s = NULL;
+	c = 0;
+	a = 0;
 	while (1)
 	{
 		a = read(fd, &c, 1);
 		if (a == -1)
 			free_stuff_and_exit(NULL, s, "read() failed at gnl_new()");
-		if (a == 0 || c == '\n')
+		if (c != '\n')
+			not_a_newline = 1;
+		if (a == 0 || (not_a_newline && c == '\n'))
 			return (s);
+		if (c == '\n')
+			continue ;
 		s = ft_strjoin_for_read(s, c);
 		perror_exit_cond("strjoin() failed at gnl_new()", !s);
 	}

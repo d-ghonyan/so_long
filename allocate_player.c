@@ -23,6 +23,8 @@ static void	free_exit(t_mlx *mlx, t_img *player, char *errmsg)
 	mlx_destroy_image(mlx->mlx_ptr, mlx->collect->img);
 	free(mlx->collect);
 	free(player);
+	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	free(mlx->mlx_ptr);
 	exit (EXIT_FAILURE);
 }
 

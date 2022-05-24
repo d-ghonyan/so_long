@@ -38,7 +38,7 @@ int	main(int argc, char **argv)
 {
 	char	**map;
 
-	map = parse_map("maps/map1.ber");
+	map = parse_map(argv[1]);
 	check_args(argc, argv[1]);
 	free_exit_cond(map, NULL, NULL, !map_check(map));
 	free_ptr_arr(map);
