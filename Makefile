@@ -2,9 +2,9 @@ NAME = so_long
 CC = cc
 CFLAGS = -c -Wall -Wextra -Werror#TODO add flags
 # MLX = -lmlx -L /usr/local/include -framework AppKit -framework OpenGL
-# MLX = -I/usr/include -Imlx_linux -O3
-# MLX_LINUX = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
-MLX = -lmlx -L mlx -framework AppKit -framework OpenGL
+MLX = -I/usr/include -Imlx_linux -O3
+MLX_LINUX = -Lmlx_linux -lmlx_Linux -L/usr/lib -Imlx_linux -lXext -lX11 -lm -lz
+# MLX = -lmlx -L mlx -framework AppKit -framework OpenGL
 LIBFT = -lft -L libft
 FT_PRINTF = -lftprintf -L ft_printf
 SRCS = $(wildcard *.c)
@@ -20,7 +20,7 @@ all: lib ftprintf $(NAME)
 
 # Linux
 $(NAME): $(OBJS)
-	$(CC) $(OBJS) $(LIBFT) $(FT_PRINTF) $(MLX) -o $(NAME)
+	$(CC) $(OBJS) $(LIBFT) $(FT_PRINTF) $(MLX) $(MLX_LINUX) -o $(NAME)
 
 
 ftprintf:

@@ -29,9 +29,23 @@ static void	init(t_mlx *mlx)
 	draw_walls(mlx, mlx->map);
 	draw_collect(mlx, mlx->map);
 	draw_exit(mlx);
-	draw_enemy(mlx);
+	draw_enemy(mlx, 0);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 		mlx->player->img, mlx->player->posx, mlx->player->posy);
+}
+
+int	a(t_mlx *mlx)
+{
+	static int	i = 0;
+	static int	index = 0;
+
+	if (i % 2500 == 0)
+	{
+		draw_enemy(mlx, index % 2);
+		index++;
+	}
+	i++;
+	return (0);
 }
 
 void	mlx_init_stuff(char *filename)
@@ -44,5 +58,6 @@ void	mlx_init_stuff(char *filename)
 	init(&mlx);
 	mlx_key_hook(mlx.win_ptr, &key_hook, &mlx);
 	mlx_hook(mlx.win_ptr, 17, 0, &hook, &mlx);
+	mlx_loop_hook(mlx.mlx_ptr, &a, &mlx);
 	mlx_loop(mlx.mlx_ptr);
 }

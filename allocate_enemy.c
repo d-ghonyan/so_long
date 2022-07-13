@@ -29,6 +29,8 @@ t_img	*allocate_enemy(t_mlx *mlx)
 		free_exit(mlx, NULL, "Can't allocate enemy");
 	enemy->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			ENEMY_IMG, &(enemy->w), &(enemy->h));
+	enemy->img2 = mlx_xpm_file_to_image(mlx->mlx_ptr,
+			"images/X2.xpm", &(enemy->w), &(enemy->h));
 	if (!enemy->img)
 		free_exit(mlx, enemy, "Can't allocate enemy img");
 	x = get_enemy_position(mlx->map).x;
@@ -69,14 +71,18 @@ t_pos	get_enemy_position(char **map)
 	return (pos);
 }
 
-void	draw_enemy(t_mlx *mlx)
+void	draw_enemy(t_mlx *mlx, int img)
 {
 	int		i;
 	int		j;
 	int		k;
+	void	*s;
 
 	k = 0;
 	i = 0;
+	s = mlx->enemy->img;
+	if (img)
+		s = mlx->enemy->img2;
 	while (mlx->map[i])
 	{
 		j = 0;
@@ -85,7 +91,7 @@ void	draw_enemy(t_mlx *mlx)
 			if (mlx->map[i][j] == 'X')
 			{
 				mlx_put_image_to_window(mlx->mlx_ptr,
-					mlx->win_ptr, mlx->enemy->img,
+					mlx->win_ptr, s,
 					j * (mlx->enemy)->w, i * (mlx->enemy)->h);
 				k++;
 			}
