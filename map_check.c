@@ -53,7 +53,7 @@ static int	middle(char *s)
 
 static int	map_chars_check(char **map)
 {
-	if (!is_allowed(map, "01PEC"))
+	if (!is_allowed(map, "01PECX"))
 	{
 		ft_printf(RED "Invalid characters in the map\n" COLOR_RESET);
 		return (0);

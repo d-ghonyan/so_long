@@ -20,6 +20,7 @@ static void	init(t_mlx *mlx)
 	mlx->collect = allocate_collect(mlx);
 	mlx->player = allocate_player(mlx);
 	mlx->exit = allocate_exit(mlx);
+	mlx->enemy = allocate_enemy(mlx);
 	mlx->win_size_w = mlx->floor->w * ft_strlen(mlx->map[0]);
 	mlx->win_size_h = mlx->floor->h * ptr_arr_len(mlx->map);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr,
@@ -28,6 +29,7 @@ static void	init(t_mlx *mlx)
 	draw_walls(mlx, mlx->map);
 	draw_collect(mlx, mlx->map);
 	draw_exit(mlx);
+	draw_enemy(mlx);
 	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
 		mlx->player->img, mlx->player->posx, mlx->player->posy);
 }

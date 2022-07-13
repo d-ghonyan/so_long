@@ -22,6 +22,8 @@ static void	thing(t_mlx *mlx)
 	if (mlx->map[mlx->player->i][mlx->player->j] == 'E'
 		&& !get_count(mlx->map, 'C'))
 		hook(mlx);
+	if (mlx->map[mlx->player->i][mlx->player->j] == 'X')
+		hook (mlx);
 }
 
 void	move_up(t_mlx *mlx)
