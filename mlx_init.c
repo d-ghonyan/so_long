@@ -38,13 +38,32 @@ int	a(t_mlx *mlx)
 {
 	static int	i = 0;
 	static int	index = 0;
+	static int	p_index = 0;
+	static int	player = 0;
 
-	if (i % 2500 == 0)
+	if (i % 1250 == 0)
 	{
 		draw_enemy(mlx, index % 2);
 		index++;
 	}
+	if (player % 2500 == 0)
+	{
+		if (p_index % 2 == 0)
+		{
+			draw_single_floor(mlx);
+			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+				mlx->player->img, mlx->player->posx, mlx->player->posy);
+		}
+		else
+		{
+			draw_single_floor(mlx);
+			mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+				mlx->player->img2, mlx->player->posx, mlx->player->posy);
+		}
+		p_index++;
+	}
 	i++;
+	player++;
 	return (0);
 }
 

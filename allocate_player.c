@@ -39,7 +39,13 @@ t_img	*allocate_player(t_mlx *mlx)
 		free_exit(mlx, NULL, "Can't allocate player");
 	player->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			PLAYER_IMG, &(player->w), &(player->h));
-	if (!player->img)
+	player->img2 = mlx_xpm_file_to_image(mlx->mlx_ptr,
+			PLAYER_IMG1, &(player->w), &(player->h));
+	player->img3 = mlx_xpm_file_to_image(mlx->mlx_ptr,
+			PLAYER_IMG2, &(player->w), &(player->h));
+	player->img4 = mlx_xpm_file_to_image(mlx->mlx_ptr,
+			PLAYER_IMG3, &(player->w), &(player->h));
+	if (!player->img || !player->img2 || !player->img3 || !player->img4)
 		free_exit(mlx, player, "Can't allocate player img");
 	x = get_player_position(mlx->map).x;
 	y = get_player_position(mlx->map).y;

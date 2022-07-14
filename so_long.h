@@ -14,41 +14,44 @@
 
 # define SO_LONG_H
 
-# define PLAYER_IMG "images/P.xpm"
+# define PLAYER_IMG "images/P1.xpm"
+# define PLAYER_IMG1 "images/P2.xpm"
+# define PLAYER_IMG2 "images/P3.xpm"
+# define PLAYER_IMG3 "images/P4.xpm"
 # define WALL_IMG "images/1.xpm"
 # define FLOOR_IMG "images/0.xpm"
 # define COLLECT_IMG "images/C.xpm"
 # define EXIT_IMG "images/E.xpm"
 # define ENEMY_IMG "images/X1.xpm"
 
-# define ESC 65307
+// # define ESC 65307
 
 //MAC
-// # define ESC 53
+# define ESC 53
 
 //LINUX
-# define UP 119
-# define DOWN 115
-# define LEFT 97
-# define RIGHT 100
+// # define UP 119
+// # define DOWN 115
+// # define LEFT 97
+// # define RIGHT 100
 
 //MACw
-// # define UP 13
-// # define DOWN 1
-// # define LEFT 0
-// # define RIGHT 2
+# define UP 13
+# define DOWN 1
+# define LEFT 0
+# define RIGHT 2
 
 //LINUX
-# define UP_A 65362
-# define DOWN_A 65364
-# define LEFT_A 65361
-# define RIGHT_A 65363
+// # define UP_A 65362
+// # define DOWN_A 65364
+// # define LEFT_A 65361
+// # define RIGHT_A 65363
 
 //MAC
-// # define UP_A 126
-// # define DOWN_A 125
-// # define LEFT_A 123
-// # define RIGHT_A 124
+# define UP_A 126
+# define DOWN_A 125
+# define LEFT_A 123
+# define RIGHT_A 124
 
 # include "mlx/mlx.h"
 # include <stdio.h>
@@ -75,6 +78,8 @@ typedef struct s_chars {
 typedef struct s_img {
 	void	*img;
 	void	*img2;
+	void	*img3;
+	void	*img4;
 	int		w;
 	int		h;
 	int		i;
