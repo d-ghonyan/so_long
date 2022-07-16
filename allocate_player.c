@@ -22,8 +22,11 @@ static void	free_exit(t_mlx *mlx, t_img *player, char *errmsg)
 	free(mlx->floor);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->collect->img);
 	free(mlx->collect);
+	if (player->img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->player->img);
+	if (player->img2)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->player->img2);
 	free(player);
-	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
 	free(mlx->mlx_ptr);
 	exit (EXIT_FAILURE);
 }
@@ -37,15 +40,13 @@ t_img	*allocate_player(t_mlx *mlx)
 	player = malloc(sizeof (*player));
 	if (!player)
 		free_exit(mlx, NULL, "Can't allocate player");
+	player->img = NULL;
+	player->img2 = NULL;
 	player->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			PLAYER_IMG, &(player->w), &(player->h));
 	player->img2 = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			PLAYER_IMG1, &(player->w), &(player->h));
-	player->img3 = mlx_xpm_file_to_image(mlx->mlx_ptr,
-			PLAYER_IMG2, &(player->w), &(player->h));
-	player->img4 = mlx_xpm_file_to_image(mlx->mlx_ptr,
-			PLAYER_IMG3, &(player->w), &(player->h));
-	if (!player->img || !player->img2 || !player->img3 || !player->img4)
+	if (!player->img || !player->img2)
 		free_exit(mlx, player, "Can't allocate player img");
 	x = get_player_position(mlx->map).x;
 	y = get_player_position(mlx->map).y;

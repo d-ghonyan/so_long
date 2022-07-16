@@ -78,8 +78,6 @@ typedef struct s_chars {
 typedef struct s_img {
 	void	*img;
 	void	*img2;
-	void	*img3;
-	void	*img4;
 	int		w;
 	int		h;
 	int		i;

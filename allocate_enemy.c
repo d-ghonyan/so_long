@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   so_long.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: dghonyan <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/05/21 19:47:41 by dghonyan          #+#    #+#             */
+/*   Updated: 2022/05/21 19:47:46 by dghonyan         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "so_long.h"
 
 static void	free_exit(t_mlx *mlx, t_img *enemy, char *errmsg)
@@ -11,8 +23,12 @@ static void	free_exit(t_mlx *mlx, t_img *enemy, char *errmsg)
 	mlx_destroy_image(mlx->mlx_ptr, mlx->collect->img);
 	free(mlx->collect);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img);
+	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img2);
 	free(mlx->player);
-	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
+	// if (enemy->img)
+	// 	mlx_destroy_image(mlx->mlx_ptr, mlx->enemy->img2);
+	// if (enemy->img2)
+	// 	mlx_destroy_image(mlx->mlx_ptr, mlx->enemy->img);
 	free(enemy);
 	free(mlx->mlx_ptr);
 	exit (EXIT_FAILURE);
@@ -27,20 +43,22 @@ t_img	*allocate_enemy(t_mlx *mlx)
 	enemy = malloc(sizeof (*enemy));
 	if (!enemy)
 		free_exit(mlx, NULL, "Can't allocate enemy");
-	enemy->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
-			ENEMY_IMG, &(enemy->w), &(enemy->h));
+	enemy->img = NULL;
+	enemy->img2 = NULL;
+	// enemy->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
+	// 		ENEMY_IMG, &(enemy->w), &(enemy->h));
 	enemy->img2 = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			"images/X2.xpm", &(enemy->w), &(enemy->h));
-	if (!enemy->img)
+	if (!enemy->img || !enemy->img2)
 		free_exit(mlx, enemy, "Can't allocate enemy img");
 	x = get_enemy_position(mlx->map).x;
 	y = get_enemy_position(mlx->map).y;
 	enemy->j = x;
 	enemy->i = y;
 	enemy->posx = (x * mlx->floor->w)
-		+ ((mlx->floor->w / 2)) - (enemy->w / 2); // change maybe
+		+ ((mlx->floor->w / 2)) - (enemy->w / 2);
 	enemy->posy = (y * mlx->floor->h)
-		+ ((mlx->floor->h / 2)) - (enemy->h / 2); // change maybe
+		+ ((mlx->floor->h / 2)) - (enemy->h / 2);
 	return (enemy);
 }
 
@@ -75,10 +93,8 @@ void	draw_enemy(t_mlx *mlx, int img)
 {
 	int		i;
 	int		j;
-	int		k;
 	void	*s;
 
-	k = 0;
 	i = 0;
 	s = mlx->enemy->img;
 	if (img)
@@ -93,7 +109,6 @@ void	draw_enemy(t_mlx *mlx, int img)
 				mlx_put_image_to_window(mlx->mlx_ptr,
 					mlx->win_ptr, s,
 					j * (mlx->enemy)->w, i * (mlx->enemy)->h);
-				k++;
 			}
 			j++;
 		}
