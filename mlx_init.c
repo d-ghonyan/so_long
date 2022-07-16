@@ -18,9 +18,9 @@ static void	init(t_mlx *mlx)
 	mlx->walls = allocate_walls(mlx);
 	mlx->floor = allocate_floor(mlx);
 	mlx->collect = allocate_collect(mlx);
-	mlx->enemy = allocate_enemy(mlx);
 	mlx->player = allocate_player(mlx);
 	mlx->exit = allocate_exit(mlx);
+	mlx->enemy = allocate_enemy(mlx);
 	mlx->win_size_w = mlx->floor->w * ft_strlen(mlx->map[0]);
 	mlx->win_size_h = mlx->floor->h * ptr_arr_len(mlx->map);
 	mlx->win_ptr = mlx_new_window(mlx->mlx_ptr,
@@ -30,8 +30,8 @@ static void	init(t_mlx *mlx)
 	draw_collect(mlx, mlx->map);
 	draw_exit(mlx);
 	draw_enemy(mlx, 0);
-	// mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
-	// 	mlx->player->img, mlx->player->posx, mlx->player->posy);
+	mlx_put_image_to_window(mlx->mlx_ptr, mlx->win_ptr,
+		mlx->player->img, mlx->player->posx, mlx->player->posy);
 }
 
 static void	norm(int p_index, t_mlx *mlx)
@@ -80,8 +80,8 @@ void	mlx_init_stuff(char *filename)
 	perror_exit_cond("can't init mlx", !mlx.mlx_ptr);
 	mlx.map = parse_map(filename);
 	init(&mlx);
-	// mlx_key_hook(mlx.win_ptr, &key_hook, &mlx);
-	// mlx_hook(mlx.win_ptr, 17, 0, &hook, &mlx);
-	// mlx_loop_hook(mlx.mlx_ptr, &a, &mlx);
-	// mlx_loop(mlx.mlx_ptr);
+	mlx_key_hook(mlx.win_ptr, &key_hook, &mlx);
+	mlx_hook(mlx.win_ptr, 17, 0, &hook, &mlx);
+	mlx_loop_hook(mlx.mlx_ptr, &a, &mlx);
+	mlx_loop(mlx.mlx_ptr);
 }

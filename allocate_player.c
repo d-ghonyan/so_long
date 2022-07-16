@@ -27,7 +27,6 @@ static void	free_exit(t_mlx *mlx, t_img *player, char *errmsg)
 	if (player->img2)
 		mlx_destroy_image(mlx->mlx_ptr, mlx->player->img2);
 	free(player);
-	free(mlx->mlx_ptr);
 	exit (EXIT_FAILURE);
 }
 

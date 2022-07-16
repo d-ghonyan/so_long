@@ -19,7 +19,6 @@ static void	free_exit(t_mlx *mlx, t_img *floor, char *errmsg)
 	mlx_destroy_image(mlx->mlx_ptr, mlx->walls->img);
 	free(mlx->walls);
 	free(floor);
-	free(mlx->mlx_ptr);
 	exit (EXIT_FAILURE);
 }
 

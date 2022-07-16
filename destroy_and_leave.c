@@ -30,5 +30,4 @@ void	destroy_and_leave(t_mlx *mlx)
 	free(mlx->enemy);
 	free_ptr_arr(mlx->map);
 	mlx_destroy_window(mlx->mlx_ptr, mlx->win_ptr);
-	free(mlx->mlx_ptr);
 }

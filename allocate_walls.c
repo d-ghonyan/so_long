@@ -17,7 +17,6 @@ static void	free_and_exit(t_mlx *mlx, t_img *walls, char *errmsg)
 	perror(errmsg);
 	free_ptr_arr(mlx->map);
 	free(walls);
-	free(mlx->mlx_ptr);
 	exit(EXIT_FAILURE);
 }
 

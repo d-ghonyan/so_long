@@ -25,12 +25,11 @@ static void	free_exit(t_mlx *mlx, t_img *enemy, char *errmsg)
 	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img);
 	mlx_destroy_image(mlx->mlx_ptr, mlx->player->img2);
 	free(mlx->player);
-	// if (enemy->img)
-	// 	mlx_destroy_image(mlx->mlx_ptr, mlx->enemy->img2);
-	// if (enemy->img2)
-	// 	mlx_destroy_image(mlx->mlx_ptr, mlx->enemy->img);
+	if (enemy->img)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->enemy->img);
+	if (enemy->img2)
+		mlx_destroy_image(mlx->mlx_ptr, mlx->enemy->img2);
 	free(enemy);
-	free(mlx->mlx_ptr);
 	exit (EXIT_FAILURE);
 }
 
@@ -45,8 +44,8 @@ t_img	*allocate_enemy(t_mlx *mlx)
 		free_exit(mlx, NULL, "Can't allocate enemy");
 	enemy->img = NULL;
 	enemy->img2 = NULL;
-	// enemy->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
-	// 		ENEMY_IMG, &(enemy->w), &(enemy->h));
+	enemy->img = mlx_xpm_file_to_image(mlx->mlx_ptr,
+			ENEMY_IMG, &(enemy->w), &(enemy->h));
 	enemy->img2 = mlx_xpm_file_to_image(mlx->mlx_ptr,
 			"images/X2.xpm", &(enemy->w), &(enemy->h));
 	if (!enemy->img || !enemy->img2)
